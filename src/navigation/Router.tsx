@@ -1,29 +1,18 @@
-import { createStackNavigator } from "@react-navigation/stack";
-import { createDrawerNavigator } from "@react-navigation/drawer";
-import Jobs from "@/screens/jobs";
-import FavoriteJobs from "@/screens/favorite-jobs";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import Home from "@/screens/home";
+import Search from "@/screens/search";
+import Favorites from "@/screens/favorites";
+import MyJobs from "@/screens/my-jobs";
 
-
-const RootStack = createStackNavigator();
-const RootDrawer = createDrawerNavigator();
-
-function Drawer() {
-  return (
-    <RootDrawer.Navigator initialRouteName="Jobs">
-      <RootDrawer.Screen name="Jobs" component={Jobs} />
-      <RootDrawer.Screen name="FavoriteJobs" component={FavoriteJobs} />
-    </RootDrawer.Navigator>
-  );
-}
+const Tab = createBottomTabNavigator();
 
 export default function Router() {
   return (
-    <RootStack.Navigator>
-      <RootStack.Screen
-        name="Drawer"
-        component={Drawer}
-        options={{ headerShown: false }}
-      />
-    </RootStack.Navigator>
+    <Tab.Navigator>
+       <Tab.Screen name="Home" component={Home} />
+       <Tab.Screen name="Search" component={Search} />
+       <Tab.Screen name="Favorites" component={Favorites} />
+       <Tab.Screen name="MyJobs" component={MyJobs} />
+    </Tab.Navigator>
   );
 }

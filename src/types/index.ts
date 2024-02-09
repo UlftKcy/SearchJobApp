@@ -1,0 +1,4 @@
+interface JobType{
+    contents:string;
+    
+}
