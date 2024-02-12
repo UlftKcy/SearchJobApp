@@ -5,8 +5,11 @@ import Favorites from "@/screens/favorites";
 import MyJobs from "@/screens/my-jobs";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import SearchBar from "@/screens/home/components/SearchBar";
+import { ApplicationStackParamList } from "@/types/navigation";
 
-const Tab = createBottomTabNavigator();
+
+const Tab = createBottomTabNavigator<ApplicationStackParamList>();
 
 export default function Router() {
   return (
@@ -18,6 +21,8 @@ export default function Router() {
           tabBarIcon: ({ color }) => (
             <AntDesign name="home" size={24} color={color} />
           ),
+          headerTitle:()=><SearchBar/>,
+          headerTitleAlign:"center",
         }}
       />
       <Tab.Screen
