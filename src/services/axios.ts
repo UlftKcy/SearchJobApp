@@ -1,13 +1,12 @@
 import axios from "axios";
-import {API_BASE_URL,API_KEY} from "@env"
 
 export const jobsAPI = axios.create({
-  baseURL: API_BASE_URL,
+  baseURL: process.env.API_BASE_URL,
 });
 
 jobsAPI.interceptors.request.use(
   function (config) {
-    const token = API_KEY;
+    const token =  process.env.API_KEY;
     config.headers["Authorization"] = `Bearer ${token}`;
     return config;
   },

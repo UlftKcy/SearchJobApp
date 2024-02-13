@@ -1,5 +1,16 @@
-import { Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
+import TopJobs from "./components/TopJobs";
 
 export default function Home() {
-    return <View><Text></Text></View>
+    return (
+      <View style={styles.container}>
+        <TopJobs/>
+      </View>
+    );
 }
+
+const styles = StyleSheet.create({
+    container:{
+        margin:16,
+    }
+})

@@ -14,7 +14,7 @@ const initialState: InitialState = {
 
 export const getJobs = createAsyncThunk("jobs/get", async () => {
   const res = await fetchJobs();
-  return res.data;
+  return res;
 });
 
 export const jobSlice = createSlice({
@@ -36,3 +36,5 @@ export const jobSlice = createSlice({
     });
   },
 });
+
+export default jobSlice.reducer;

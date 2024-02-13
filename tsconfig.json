@@ -7,5 +7,5 @@
     }
   },
   "include": ["**/*.ts", "**/*.tsx", "index.js"],
-  "exclude": ["node_modules", "babel.config.js"]
+  "exclude": ["node_modules", "babel.config.js"],
 }
