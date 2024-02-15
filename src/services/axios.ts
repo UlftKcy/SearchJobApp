@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const jobsAPI = axios.create({
-  baseURL: process.env.API_BASE_URL,
+  baseURL:'https://www.themuse.com/api/public',
 });
 
 jobsAPI.interceptors.request.use(

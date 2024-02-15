@@ -1,4 +1,4 @@
-import { FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Dimensions, FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import EvilIcons from "react-native-vector-icons/EvilIcons";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
@@ -6,7 +6,6 @@ import { useEffect } from "react";
 import { getJobs } from "@/features/jobs/jobSlice";
 
 function JobCard({item}) {
-    console.log(item)
     return(
         <View style={styles.card}>
         <View style={styles.cardHeader}>
@@ -57,6 +56,8 @@ export default function TopJobs() {
         data={jobs}
         renderItem={({item})=><JobCard item={item}/>}
         keyExtractor={item=>item.id}
+        initialNumToRender={3}
+        horizontal={true}
       />
     </View>
   );
@@ -86,13 +87,14 @@ const styles = StyleSheet.create({
   // job card
 
   card: {
-    width: "87%",
+    width: Dimensions.get("window").width/1.3,
     height: 180,
     backgroundColor: "#4966F7",
     padding: 20,
     borderRadius: 12,
     flexDirection: "column",
     justifyContent: "space-between",
+    marginRight:10,
   },
   cardHeader: {
     flexDirection: "row",
