@@ -21,7 +21,7 @@ export default function TopJobs() {
   }, [dispatch]);
 
   return (
-    <View>
+    <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.title}>Your Daily Top Jobs</Text>
         <TouchableOpacity style={styles.seeAllWrapper}>
@@ -45,6 +45,9 @@ export default function TopJobs() {
 }
 
 const styles = StyleSheet.create({
+  container:{
+    marginBottom:24
+  },
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
