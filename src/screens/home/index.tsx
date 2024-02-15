@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
-import TopJobs from "./components/TopJobs";
+import TopJobs from "./components/top-jobs/TopJobs";
 
 export default function Home() {
     return (

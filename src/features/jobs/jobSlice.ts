@@ -1,8 +1,9 @@
 import { fetchJobs } from "@/services/jobs";
+import { JobType } from "@/types";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 type InitialState = {
-  jobs: [];
+  jobs: JobType[];
   loading: boolean;
   error: boolean;
 };
