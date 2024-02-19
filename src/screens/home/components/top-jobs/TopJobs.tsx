@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { useEffect } from "react";
+import { Fragment, useEffect } from "react";
 import { getJobs } from "@/features/jobs/jobSlice";
 import { JobType } from "@/types";
 import JobCard from "./JobCard";
@@ -21,7 +21,7 @@ export default function TopJobs() {
   }, [dispatch]);
 
   return (
-    <View style={styles.container}>
+    <Fragment>
       <View style={styles.header}>
         <Text style={styles.title}>Your Daily Top Jobs</Text>
         <TouchableOpacity style={styles.seeAllWrapper}>
@@ -40,14 +40,11 @@ export default function TopJobs() {
         initialNumToRender={3}
         horizontal={true}
       />
-    </View>
+    </Fragment>
   );
 }
 
 const styles = StyleSheet.create({
-  container:{
-    marginBottom:24
-  },
   header: {
     flexDirection: "row",
     justifyContent: "space-between",

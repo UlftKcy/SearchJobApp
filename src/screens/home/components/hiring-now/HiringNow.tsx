@@ -1,7 +1,7 @@
 import { getCompanies } from "@/features/companies/companySlice";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { CompanyType } from "@/types";
-import { useEffect } from "react";
+import { Fragment, useEffect } from "react";
 import {
   FlatList,
   StyleSheet,
@@ -23,7 +23,7 @@ export default function HiringNow() {
     dispatch(getCompanies());
   }, [dispatch]);
   return (
-    <View>
+    <Fragment>
       <View style={styles.header}>
         <Text style={styles.title}>Hiring Now</Text>
         <TouchableOpacity style={styles.moreWrapper}>
@@ -44,14 +44,11 @@ export default function HiringNow() {
         initialNumToRender={3}
         ItemSeparatorComponent={() => <View style={styles.seperator}></View>}
       />
-    </View>
+    </Fragment>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    marginBottom: 24,
-  },
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
