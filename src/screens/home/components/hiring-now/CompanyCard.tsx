@@ -1,6 +1,13 @@
 import { CompanyIndustry, CompanyType } from "@/types";
 import { useMemo } from "react";
-import { Button, Dimensions, Image, StyleSheet, Text, View } from "react-native";
+import {
+  Button,
+  Dimensions,
+  Image,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 
 export default function CompanyCard(company: CompanyType) {
   const companyIndustry = useMemo(() => {
@@ -12,8 +19,9 @@ export default function CompanyCard(company: CompanyType) {
       <View style={styles.company}>
         <Image
           source={{ uri: company.refs.logo_image }}
-          width={Dimensions.get("window").width/8}
-          height={Dimensions.get("window").width/8}
+          width={Dimensions.get("window").width / 8}
+          height={Dimensions.get("window").width / 8}
+          resizeMode="center"
           alt={company.name}
           style={styles.image}
         />
@@ -22,7 +30,7 @@ export default function CompanyCard(company: CompanyType) {
           <Text style={styles.industry}>{companyIndustry[0]}</Text>
         </View>
       </View>
-      <Button title="Apply" color="#4966F7"/>
+      <Button title="Apply" color="#4966F7" />
     </View>
   );
 }
@@ -32,30 +40,24 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginBottom:5,
-    borderBottomWidth:1,
-    borderBottomColor:"#ddd",
-    paddingRight:5,
+    paddingRight: 5,
   },
   company: {
     flexDirection: "row",
-    alignItems:"center",
+    alignItems: "center",
   },
   companyDetail: {
     flexDirection: "column",
   },
   image: {
-    borderRadius:8,
-    marginRight:12,
-    objectFit:"scale-down",
+    borderRadius: 8,
+    marginRight: 12,
   },
   name: {
-    color:"#2B2A35",
-    fontSize:16,
-    fontWeight:"600"
+    color: "#2B2A35",
+    fontSize: 16,
+    fontWeight: "600",
   },
-  industry: {fontWeight:"300"},
-  button: {
-    
-  },
+  industry: { fontWeight: "300" },
+  button: {},
 });

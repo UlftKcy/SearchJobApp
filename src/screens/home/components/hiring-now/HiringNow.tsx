@@ -2,12 +2,21 @@ import { getCompanies } from "@/features/companies/companySlice";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { CompanyType } from "@/types";
 import { useEffect } from "react";
-import { FlatList, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  FlatList,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import CompanyCard from "./CompanyCard";
 
 export default function HiringNow() {
-  const companies = useAppSelector((state) => state.companies.companies).slice(0,3);
+  const companies = useAppSelector((state) => state.companies.companies).slice(
+    0,
+    3
+  );
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -28,9 +37,12 @@ export default function HiringNow() {
       </View>
       <FlatList
         data={companies}
-        renderItem={({ item }: { item: CompanyType }) => <CompanyCard {...item}/>}
+        renderItem={({ item }: { item: CompanyType }) => (
+          <CompanyCard {...item} />
+        )}
         keyExtractor={(item) => String(item.id)}
         initialNumToRender={3}
+        ItemSeparatorComponent={() => <View style={styles.seperator}></View>}
       />
     </View>
   );
@@ -57,5 +69,9 @@ const styles = StyleSheet.create({
   more: {
     color: "#334AC0",
     fontWeight: "700",
+  },
+  seperator: {
+    borderWidth: 0.5,
+    borderColor: "#ddd",
   },
 });
