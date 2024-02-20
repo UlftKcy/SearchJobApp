@@ -6,17 +6,17 @@ import MyJobs from "@/screens/my-jobs";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import SearchBar from "@/screens/home/components/SearchBar";
-import { ApplicationStackParamList } from "@/types/navigation";
+import { BottomTabParamList } from "@/types/navigation";
+import HomeStack from "./stacks/HomeStack";
 
-
-const Tab = createBottomTabNavigator<ApplicationStackParamList>();
+const Tab = createBottomTabNavigator<BottomTabParamList>();
 
 export default function Router() {
   return (
     <Tab.Navigator>
       <Tab.Screen
-        name="Home"
-        component={Home}
+        name="HomeStack"
+        component={HomeStack}
         options={{
           tabBarIcon: ({ color }) => (
             <AntDesign name="home" size={24} color={color} />

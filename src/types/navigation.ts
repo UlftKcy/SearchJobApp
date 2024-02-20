@@ -1,17 +1,18 @@
-import type {
-  StackNavigationProp,
-  // StackScreenProps,
-} from "@react-navigation/stack";
+import type { StackNavigationProp } from "@react-navigation/stack";
 
-export type ApplicationStackParamList = {
-  Home: undefined;
+export type BottomTabParamList = {
+  HomeStack: undefined;
   Search: undefined;
   Favorites: undefined;
   MyJobs: undefined;
 };
 
-/* export type ApplicationScreenProps =
-	StackScreenProps<ApplicationStackParamList>; */
+export type HomeStackParamList = {
+  Home: undefined;
+  DailyTopJobs: undefined;
+  HiringNow: undefined;
+  RecentlyViewJobs: undefined;
+};
 
 export type ApplicationNavigationProps =
-  StackNavigationProp<ApplicationStackParamList>;
+  StackNavigationProp<HomeStackParamList>;
