@@ -48,4 +48,7 @@ export interface CompanyType {
   export interface CompanyIndustry {
     name: string;
   }
-  
+
+  export interface JobsAndCompanies extends JobType{
+    companyDetail:CompanyType
+  }

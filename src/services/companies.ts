@@ -8,3 +8,12 @@ export const fetchCompanies = async () => {
     throw new Error("Failed to fetch companies");
   }
 };
+
+export const fetchCompanyById = async (id: number) => {
+  try {
+    const res = await jobsAPI.get(`/companies/${id}`);
+    return res.data;
+  } catch (error) {
+    throw new Error("Failed to fetch company by id");
+  }
+};

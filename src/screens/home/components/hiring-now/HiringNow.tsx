@@ -13,15 +13,14 @@ import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import CompanyCard from "./CompanyCard";
 
 export default function HiringNow() {
-  const companies = useAppSelector((state) => state.companies.companies).slice(
-    0,
-    3
-  );
+  const companies = useAppSelector((state) => state.companies.companies).slice(0,3);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(getCompanies());
   }, [dispatch]);
+
+
   return (
     <Fragment>
       <View style={styles.header}>

@@ -1,24 +1,31 @@
-import { getAllJobs } from "@/features/jobs/allJobSlice";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { useEffect } from "react";
-import { FlatList, Text, View } from "react-native";
+import { FlatList, StyleSheet, Text, View } from "react-native";
 import DailyTopJobsCard from "./components/DailyTopJobsCard";
+import { getJobsAndCompanies } from "@/features/jobs/jobsAndCompaniesSlice";
 
 export default function DailyTopJobsPage() {
-  const allJobs = useAppSelector((state) => state.allJobs.allJobs);
+  const jobsAndCompanies = useAppSelector((state) => state.jobsAndCompanies.jobsAndCompanies);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getAllJobs(1));
+    dispatch(getJobsAndCompanies(1));
   }, [dispatch]);
 
   return (
     <View>
       <FlatList
-        data={allJobs}
+        data={jobsAndCompanies}
         renderItem={({ item }) => <DailyTopJobsCard {...item}/>}
         keyExtractor={(item,index)=>item.id}
+        ItemSeparatorComponent={() => <View style={styles.seperator}></View>}
       />
     </View>
   );
 }
+const styles = StyleSheet.create({
+  seperator: {
+    borderWidth: 0.5,
+    borderColor: "#ddd",
+  },
+});

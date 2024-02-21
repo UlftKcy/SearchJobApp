@@ -1,4 +1,6 @@
+import { JobType } from "@/types";
 import { jobsAPI } from "./axios";
+import { fetchCompanyById } from "./companies";
 
 export const fetchJobs = async () => {
   try {
@@ -9,10 +11,23 @@ export const fetchJobs = async () => {
   }
 };
 
-export const fetchAllJobs = async (page:number) => {
+export const fetchJobsWithCompany = async (page: number) => {
   try {
     const res = await jobsAPI.get(`/jobs?page=${page}`);
-    return res.data.results; 
+    const jobs = res.data.results;
+
+    const jobsWithCompanyPromises  = jobs.map(async (job: JobType) => {
+      const companyDetail = await fetchCompanyById(job.company.id);
+      return {
+        ...job,
+        companyDetail:companyDetail
+      }
+    });
+
+    const jobsWithCompany = await Promise.all(jobsWithCompanyPromises);
+    
+    return jobsWithCompany;
+  
   } catch (error) {
     throw new Error("Failed to fetch all jobs");
   }
