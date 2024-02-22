@@ -29,7 +29,7 @@ export const jobsAndCompaniesSlice = createSlice({
     });
     builder.addCase(getJobsAndCompanies.fulfilled, (state, action) => {
       state.loading = false;
-      state.jobsAndCompanies = action.payload;
+      state.jobsAndCompanies = [...state.jobsAndCompanies,...action.payload];
     });
     builder.addCase(getJobsAndCompanies.rejected, (state, action) => {
       state.loading = false;
