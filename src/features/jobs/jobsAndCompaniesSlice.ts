@@ -3,17 +3,24 @@ import { JobType, JobsAndCompanies } from "@/types";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 type InitialState = {
-  jobsAndCompanies: JobsAndCompanies[];
+  jobsAndCompanies: {
+    jobs: JobsAndCompanies[],
+    page: number
+  };
   loading: boolean;
   error: boolean;
 };
 const initialState: InitialState = {
-  jobsAndCompanies: [],
+  jobsAndCompanies: {
+    jobs: [],
+    page: 1,
+  },
   loading: false,
   error: false,
 };
 
 export const getJobsAndCompanies = createAsyncThunk("jobsAndCompanies/get", async (page: number) => {
+  console.log(page)
   const res = await fetchJobsWithCompany(page);
   return res;
 });
@@ -29,7 +36,8 @@ export const jobsAndCompaniesSlice = createSlice({
     });
     builder.addCase(getJobsAndCompanies.fulfilled, (state, action) => {
       state.loading = false;
-      state.jobsAndCompanies = [...state.jobsAndCompanies,...action.payload];
+      state.jobsAndCompanies.jobs = [...state.jobsAndCompanies.jobs, ...action.payload];
+      state.jobsAndCompanies.page++;
     });
     builder.addCase(getJobsAndCompanies.rejected, (state, action) => {
       state.loading = false;
