@@ -9,7 +9,7 @@ type InitialState = {
 };
 
 const initialState: InitialState = {
-    companies: [],
+  companies: [],
   loading: false,
   error: false,
 };
@@ -19,7 +19,7 @@ export const getCompanies = createAsyncThunk("companies/get", async () => {
   return res;
 });
 
-export const companySlice = createSlice({
+const companySlice = createSlice({
   name: "companies",
   initialState: initialState,
   reducers: {},

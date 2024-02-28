@@ -12,6 +12,7 @@ export type HomeStackParamList = {
   DailyTopJobs: undefined;
   HiringNow: undefined;
   RecentlyViewJobs: undefined;
+  Search:undefined;
 };
 
 export type ApplicationNavigationProps =

@@ -4,8 +4,8 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 type InitialState = {
   jobsAndCompanies: {
-    jobs: JobsAndCompanies[],
-    page: number
+    jobs: JobsAndCompanies[];
+    page: number;
   };
   loading: boolean;
   error: boolean;
@@ -19,13 +19,15 @@ const initialState: InitialState = {
   error: false,
 };
 
-export const getJobsAndCompanies = createAsyncThunk("jobsAndCompanies/get", async (page: number) => {
-  console.log(page)
-  const res = await fetchJobsWithCompany(page);
-  return res;
-});
+export const getJobsAndCompanies = createAsyncThunk(
+  "jobsAndCompanies/get",
+  async (page: number) => {
+    const res = await fetchJobsWithCompany(page);
+    return res;
+  }
+);
 
-export const jobsAndCompaniesSlice = createSlice({
+const jobsAndCompaniesSlice = createSlice({
   name: "jobsAndCompanies",
   initialState: initialState,
   reducers: {},
@@ -36,7 +38,10 @@ export const jobsAndCompaniesSlice = createSlice({
     });
     builder.addCase(getJobsAndCompanies.fulfilled, (state, action) => {
       state.loading = false;
-      state.jobsAndCompanies.jobs = [...state.jobsAndCompanies.jobs, ...action.payload];
+      state.jobsAndCompanies.jobs = [
+        ...state.jobsAndCompanies.jobs,
+        ...action.payload,
+      ];
       state.jobsAndCompanies.page++;
     });
     builder.addCase(getJobsAndCompanies.rejected, (state, action) => {

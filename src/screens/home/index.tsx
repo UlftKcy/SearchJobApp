@@ -37,9 +37,9 @@ export default function Home() {
     <FlatList
       data={sections}
       renderItem={({ item }) => renderSection(item)}
-      keyExtractor={(item, index) => index.toString()}
+      keyExtractor={(_, index) => index.toString()}
       showsVerticalScrollIndicator={false}
-      contentContainerStyle={{ flex: 1, padding: 16, backgroundColor: "#ffff" }}
+      contentContainerStyle={{ flex: 1, paddingHorizontal: 16, backgroundColor: "#ffff" }}
       ItemSeparatorComponent={()=><View style={{marginBottom:20}}></View>}
     />
   );
