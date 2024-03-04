@@ -6,7 +6,7 @@ import { useState } from "react";
 import { StyleSheet, TextInput, TouchableOpacity, View } from "react-native";
 import FilterIcon from "react-native-vector-icons/AntDesign";
 
-export default function SearchBar() {
+export default function SearchBar({inputRef}) {
   const [searchText, setSearchText] = useState("");
   const dispatch = useAppDispatch();
   const { navigate } = useNavigation<SearchNavigationProp>();
@@ -26,6 +26,7 @@ export default function SearchBar() {
         cursorColor="#4966F7"
         onChangeText={(newSearchText) => setSearchText(newSearchText)}
         onSubmitEditing={onSubmit}
+        ref={inputRef}
       />
       <TouchableOpacity
         style={styles.buttonWrapper}

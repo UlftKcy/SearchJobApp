@@ -6,11 +6,7 @@ import AntDesign from "react-native-vector-icons/AntDesign";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import HomeStack from "./stacks/HomeStack";
 import HomeSearchBar from "@/screens/home/components/HomeSearchBar";
-import SearchBar from "@/screens/search/components/SearchBar";
 import SearchStack from "./stacks/SearchStack";
-import { getHeaderTitle } from '@react-navigation/elements';
-import { Text, View } from "react-native";
-
 
 const Tab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -24,6 +20,7 @@ export default function Router() {
           tabBarIcon: ({ color }) => (
             <AntDesign name="home" size={24} color={color} />
           ),
+          title:"Home",
           headerTitle:()=><HomeSearchBar/>,
           headerStyle:{
             height:120,
@@ -37,6 +34,7 @@ export default function Router() {
           tabBarIcon: ({ color }) => (
             <AntDesign name="search1" size={24} color={color} />
           ),
+          title:"Search",
           headerShown:false,
         }}
       />
