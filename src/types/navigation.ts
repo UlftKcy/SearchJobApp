@@ -12,7 +12,7 @@ export type HomeStackParamList = {
   DailyTopJobs:undefined;
   HiringNow:undefined;
   RecentlyViewJobs:undefined;
-  Search:undefined;
+  SearchStack:undefined;
 };
 
 export type SearchStackParamList = {
