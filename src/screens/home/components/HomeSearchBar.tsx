@@ -1,15 +1,15 @@
-import { ApplicationNavigationProps } from "@/types/navigation";
+import { HomeNavigationProp } from "@/types/navigation";
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet, TextInput, View } from "react-native";
 
 export default function HomeSearchBar() {
-  const navigation = useNavigation<ApplicationNavigationProps>();
+  const {navigate} = useNavigation<HomeNavigationProp>();
   return (
     <View style={styles.searchContainer}>
       <TextInput
         style={styles.input}
         placeholder="Search Jobs,positions,companies..."
-        onPressIn={() => navigation.navigate("Search")}
+        onPressIn={() => navigate("SearchStack")}
         showSoftInputOnFocus={false}
       />
     </View>

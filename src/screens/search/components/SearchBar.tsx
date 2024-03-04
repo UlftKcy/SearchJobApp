@@ -1,88 +1,66 @@
 import { searchQuery } from "@/features/search/searchSlice";
 import { useAppDispatch } from "@/hooks/redux";
+import { SearchNavigationProp } from "@/types/navigation";
+import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
-import {
-  Dimensions,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import ModalFilters from "./ModalFilters";
+import { StyleSheet, TextInput, TouchableOpacity, View } from "react-native";
+import FilterIcon from "react-native-vector-icons/AntDesign";
 
 export default function SearchBar() {
   const [searchText, setSearchText] = useState("");
-  const [filtersModalVisible,setFiltersModalVisible] = useState(false);
   const dispatch = useAppDispatch();
+  const { navigate } = useNavigation<SearchNavigationProp>();
 
   const onSubmit = () => {
     dispatch(searchQuery(searchText));
   };
 
   return (
-    <View style={styles.wrapper}>
-      <View style={styles.searchContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="Search Jobs,positions,companies..."
-          inputMode="search"
-          enterKeyHint="search"
-          autoFocus={true}
-          cursorColor="#4966F7"
-          onChangeText={(newSearchText) => setSearchText(newSearchText)}
-          onSubmitEditing={onSubmit}
-        />
-      </View>
-      <View style={styles.filter}>
-        <TouchableOpacity style={styles.button} onPress={()=>setFiltersModalVisible(!filtersModalVisible)}>
-          <Text style={styles.buttonText}>Filters</Text>
-          <ModalFilters filtersModalVisible={filtersModalVisible} setFiltersModalVisible={setFiltersModalVisible}/>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Location</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Category</Text>
-        </TouchableOpacity>
-      </View>
+    <View style={styles.container}>
+      <TextInput
+        style={styles.input}
+        placeholder="Search Jobs,positions,companies..."
+        inputMode="search"
+        enterKeyHint="search"
+        autoFocus={true}
+        cursorColor="#4966F7"
+        onChangeText={(newSearchText) => setSearchText(newSearchText)}
+        onSubmitEditing={onSubmit}
+      />
+      <TouchableOpacity
+        style={styles.buttonWrapper}
+        onPress={() => navigate("ModalFilter")}
+      >
+        <FilterIcon name="filter" size={26} style={styles.button} />
+      </TouchableOpacity>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  wrapper: {
-   
-  },
-  searchContainer: {
+  container: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 20,
+    marginBottom:20,
   },
   input: {
-    width: "100%",
+    width: "87%",
+    height: 48,
     borderWidth: 1,
     borderRadius: 5,
     padding: 10,
     borderColor: "#DDDFE5",
     backgroundColor: "#ffff",
+    marginRight: 5,
   },
-  filter: {
-    flexDirection: "row",
+  buttonWrapper: {
+    borderWidth: 1,
+    borderColor: "#DDDFE5",
+    borderRadius: 5,
+    width: "13%",
+    height: 48,
     alignItems: "center",
-    justifyContent: "space-between",
+    justifyContent: "center",
   },
-  button: {
-    borderWidth:1,
-    borderColor: "#334AC0",
-    paddingVertical: 8,
-    borderRadius: 8,
-    width:Dimensions.get("window").width/4,
-    alignItems: 'center',
-    justifyContent: 'center',
-
-  },
-  buttonText:{
-    color:"#334AC0"
-  }
+  button: {},
 });

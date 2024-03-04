@@ -1,6 +1,5 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { BottomTabParamList } from "@/types/navigation";
-import Search from "@/screens/search";
 import Favorites from "@/screens/favorites";
 import MyJobs from "@/screens/my-jobs";
 import AntDesign from "react-native-vector-icons/AntDesign";
@@ -8,6 +7,10 @@ import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import HomeStack from "./stacks/HomeStack";
 import HomeSearchBar from "@/screens/home/components/HomeSearchBar";
 import SearchBar from "@/screens/search/components/SearchBar";
+import SearchStack from "./stacks/SearchStack";
+import { getHeaderTitle } from '@react-navigation/elements';
+import { Text, View } from "react-native";
+
 
 const Tab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -23,21 +26,18 @@ export default function Router() {
           ),
           headerTitle:()=><HomeSearchBar/>,
           headerStyle:{
-            height:150,
+            height:120,
           }
         }}
       />
       <Tab.Screen
-        name="Search"
-        component={Search}
+        name="SearchStack"
+        component={SearchStack}
         options={{
           tabBarIcon: ({ color }) => (
             <AntDesign name="search1" size={24} color={color} />
           ),
-          headerTitle:()=><SearchBar/>,
-          headerStyle:{
-            height:150,
-          }
+          headerShown:false,
         }}
       />
       <Tab.Screen

@@ -1,8 +1,10 @@
 import { StyleSheet, Text, View } from "react-native";
+import SearchBar from "./components/SearchBar";
 
-export default function Search({ navigation }) {
+export default function Search() {
   return (
     <View style={styles.container}>
+      <SearchBar/>
       <View>
         <Text style={styles.recentJobs}>Recent Jobs</Text>
         <Text style={styles.noSearch}>No search...</Text>
@@ -17,6 +19,7 @@ export default function Search({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection:"column",
     padding: 16,
     backgroundColor: "#ffff",
   },
