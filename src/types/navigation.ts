@@ -18,6 +18,7 @@ export type HomeStackParamList = {
 export type SearchStackParamList = {
   Search:undefined;
   ModalFilter:undefined;
+  ModalCategory:undefined;
 };
 
 export type HomeNavigationProp = StackNavigationProp<HomeStackParamList>;

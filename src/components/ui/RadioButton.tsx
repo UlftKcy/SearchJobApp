@@ -11,11 +11,14 @@ export default function RadioButton({option,selectedOption,onSelect}) {
 
 const styles = StyleSheet.create({
     container:{
-        width:"100%",
         flexDirection:"row",
         justifyContent:"space-between",
         alignItems:"center",
-        marginBottom:14
+        marginBottom:20,
+        borderWidth:1,
+        borderColor:"#DDDFE5",
+        borderRadius:24,
+        padding:10,
     },
     optionName:{
         fontSize:14

@@ -1,5 +1,5 @@
 import { fetchJobsWithCompany } from "@/services/jobs";
-import { JobType, JobsAndCompanies } from "@/types";
+import { JobsAndCompanies } from "@/types";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 type InitialState = {
