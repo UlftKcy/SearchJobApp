@@ -5,12 +5,14 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 type InitialState = {
   jobs: JobType[];
   categories:string[];
+  selectedCategory:string;
   loading: boolean;
   error: boolean;
 };
 const initialState: InitialState = {
   jobs: [],
   categories:[],
+  selectedCategory:null,
   loading: false,
   error: false,
 };
@@ -26,12 +28,13 @@ export const jobSlice = createSlice({
   reducers: {
     getCategories:(state)=>{
       state.jobs.map((job)=>{
-        
-        if(!state.categories.includes(job.categories[0].name) && job.categories[0].name !== "Unknown"){
+        if(!state.categories.includes(job.categories[0]?.name) && job.categories[0]?.name !== "Unknown" && job.categories[0]?.name !== undefined){
           state.categories.push(job.categories[0].name)
         }
-      
       })
+    },
+    selectCategory:(state,action)=>{
+      state.selectedCategory = action.payload;
     }
   },
   extraReducers: (builder) => {
@@ -50,5 +53,5 @@ export const jobSlice = createSlice({
   },
 });
 
-export const {getCategories} = jobSlice.actions;
+export const {getCategories,selectCategory} = jobSlice.actions;
 export default jobSlice.reducer;

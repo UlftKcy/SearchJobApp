@@ -1,32 +1,37 @@
-import { useAppSelector } from "@/hooks/redux";
-import { index } from "cheerio/lib/api/traversing";
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import RadioButton from "@/components/ui/RadioButton";
+import { selectCategory } from "@/features/jobs/jobSlice";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { SearchNavigationProp } from "@/types/navigation";
+import { useNavigation } from "@react-navigation/native";
+import { useState } from "react";
+import { FlatList } from "react-native";
 
 export default function ModalCategory() {
   const categories = useAppSelector((state) => state.jobs.categories);
+  const category = useAppSelector((state) => state.jobs.selectedCategory);
+  const dispatch = useAppDispatch();
+  const [selectedCategory, setSelectedCategory] = useState(category);
+  const navigation = useNavigation<SearchNavigationProp>();
 
-  return <FlatList data={categories} renderItem={({ item }) => <View><Text>{item}</Text></View>} keyExtractor={(_,index)=>index.toString()}/>;
+  const onSelect = (option: any) => {
+    setSelectedCategory(option);
+    navigation.goBack();
+
+    dispatch(selectCategory(option))
+  };
+
+  return (
+    <FlatList
+      data={categories}
+      renderItem={({ item }) => (
+        <RadioButton
+          option={item}
+          selectedOption={selectedCategory}
+          onSelect={onSelect}
+        />
+      )}
+      keyExtractor={(_, index) => index.toString()}
+      contentContainerStyle={{ flex: 1, padding: 16, backgroundColor: "#ffff" }}
+    />
+  );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#ffff",
-    padding: 16,
-  },
-  /*  title: {
-      fontSize: 16,
-      marginBottom: 20,
-      fontWeight: "600",
-    }, */
-  /* categoryButton: {
-      marginBottom: 20,
-      borderWidth: 1,
-      borderColor: "#DDDFE5",
-      borderRadius: 24,
-      padding: 14,
-    },
-    categoryTitle: {
-      fontSize: 14,
-    }, */
-});
