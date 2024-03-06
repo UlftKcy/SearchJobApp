@@ -1,18 +1,16 @@
 import { fetchJobs } from "@/services/jobs";
-import { JobCategory, JobType } from "@/types";
+import { JobType } from "@/types";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 type InitialState = {
   jobs: JobType[];
-  categories:string[];
-  selectedCategory:string;
+  categories: string[];
   loading: boolean;
   error: boolean;
 };
 const initialState: InitialState = {
   jobs: [],
-  categories:[],
-  selectedCategory:null,
+  categories: [],
   loading: false,
   error: false,
 };
@@ -26,16 +24,17 @@ export const jobSlice = createSlice({
   name: "jobs",
   initialState: initialState,
   reducers: {
-    getCategories:(state)=>{
-      state.jobs.map((job)=>{
-        if(!state.categories.includes(job.categories[0]?.name) && job.categories[0]?.name !== "Unknown" && job.categories[0]?.name !== undefined){
-          state.categories.push(job.categories[0].name)
+    getCategories: (state) => {
+      state.jobs.map((job) => {
+        if (
+          !state.categories.includes(job.categories[0]?.name) &&
+          job.categories[0]?.name !== "Unknown" &&
+          job.categories[0]?.name !== undefined
+        ) {
+          state.categories.push(job.categories[0].name);
         }
-      })
+      });
     },
-    selectCategory:(state,action)=>{
-      state.selectedCategory = action.payload;
-    }
   },
   extraReducers: (builder) => {
     builder.addCase(getJobs.pending, (state, action) => {
@@ -53,5 +52,5 @@ export const jobSlice = createSlice({
   },
 });
 
-export const {getCategories,selectCategory} = jobSlice.actions;
+export const { getCategories } = jobSlice.actions;
 export default jobSlice.reducer;

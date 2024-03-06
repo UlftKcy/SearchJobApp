@@ -1,5 +1,5 @@
 import RadioButton from "@/components/ui/RadioButton";
-import { selectCategory } from "@/features/jobs/jobSlice";
+import { selectCategory } from "@/features/search/filterByJobSlice";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { SearchNavigationProp } from "@/types/navigation";
 import { useNavigation } from "@react-navigation/native";
@@ -8,7 +8,7 @@ import { FlatList } from "react-native";
 
 export default function ModalCategory() {
   const categories = useAppSelector((state) => state.jobs.categories);
-  const category = useAppSelector((state) => state.jobs.selectedCategory);
+  const category = useAppSelector((state) => state.filterByJob.selectedCategory);
   const dispatch = useAppDispatch();
   const [selectedCategory, setSelectedCategory] = useState(category);
   const navigation = useNavigation<SearchNavigationProp>();
@@ -17,7 +17,7 @@ export default function ModalCategory() {
     setSelectedCategory(option);
     navigation.goBack();
 
-    dispatch(selectCategory(option))
+    dispatch(selectCategory(option));
   };
 
   return (

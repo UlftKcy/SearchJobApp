@@ -1,6 +1,6 @@
 import RadioButton from "@/components/ui/RadioButton";
 import { getCategories } from "@/features/jobs/jobSlice";
-import { getJobsAndCompanies } from "@/features/jobs/jobsAndCompaniesSlice";
+import { getFilteredJobs } from "@/features/search/filterByJobSlice";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { SearchNavigationProp } from "@/types/navigation";
 import { useNavigation } from "@react-navigation/native";
@@ -14,14 +14,17 @@ import {
   View,
 } from "react-native";
 
-const options: string[] = ["Jobs", "Companies"];
+const options: string[] = ["jobs", "companies"];
 
 export default function ModalFilter() {
   const [selectedOption, setSelectedOption] = useState(options[0]);
   const { navigate } = useNavigation<SearchNavigationProp>();
   const dispatch = useAppDispatch();
   const selectedCategory = useAppSelector(
-    (state) => state.jobs.selectedCategory
+    (state) => state.filterByJob.selectedCategory
+  );
+  const page = useAppSelector(
+    (state) => state.filterByJob.filteredJobs.page
   );
 
   const onSelect = (option: any) => {
@@ -31,6 +34,14 @@ export default function ModalFilter() {
   const handleFilter = async () => {
     dispatch(getCategories());
     navigate("ModalCategory");
+  };
+
+  const onSubmit = () => {
+    if (selectedOption === "jobs") {
+      dispatch(getFilteredJobs({ page, category: selectedCategory }));
+      navigate("Search");
+    } else {
+    }
   };
 
   return (
@@ -63,7 +74,7 @@ export default function ModalFilter() {
           </Text>
         </View>
       </ScrollView>
-      <TouchableOpacity style={styles.filterButton}>
+      <TouchableOpacity style={styles.filterButton} onPress={onSubmit}>
         <Text style={styles.filterButtonText}>Filter</Text>
       </TouchableOpacity>
     </View>

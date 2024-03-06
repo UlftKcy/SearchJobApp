@@ -1,4 +1,4 @@
-import { searchQuery } from "@/features/search/searchSlice";
+import { searchQueryByJob } from "@/features/search/filterByJobSlice";
 import { useAppDispatch } from "@/hooks/redux";
 import { SearchNavigationProp } from "@/types/navigation";
 import { useNavigation } from "@react-navigation/native";
@@ -12,7 +12,7 @@ export default function SearchBar({inputRef}) {
   const { navigate } = useNavigation<SearchNavigationProp>();
 
   const onSubmit = () => {
-    dispatch(searchQuery(searchText));
+    dispatch(searchQueryByJob(searchText));
   };
 
   return (
