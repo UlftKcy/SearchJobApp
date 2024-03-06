@@ -49,7 +49,7 @@ export default function Search() {
               <Text>{item.name}</Text>
             </View>
           )}
-          keyExtractor={(_, index) => index.toString()}
+          keyExtractor={(item, _) => item.id.toString()}
           // ItemSeparatorComponent={() => <View style={styles.seperator}></View>}
           ListFooterComponent={
             <View>

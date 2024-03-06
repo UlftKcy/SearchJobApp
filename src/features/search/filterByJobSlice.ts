@@ -55,7 +55,14 @@ const filterByJobSlice = createSlice({
       state.filteredJobs.jobs = [
         ...state.filteredJobs.jobs,
         ...action.payload,
+      ]
+     /*  const allJobs = [
+        ...state.filteredJobs.jobs,
+        ...action.payload,
       ];
+      // remove duplicate jobs
+      state.filteredJobs.jobs = allJobs.filter((job,index)=>allJobs.indexOf(job) === index); */
+      state.filteredJobs.page++;
     });
     builder.addCase(getFilteredJobs.rejected, (state, action) => {
       state.loading = false;
