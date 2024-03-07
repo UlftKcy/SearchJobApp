@@ -1,12 +1,9 @@
-import RadioButton from "@/components/ui/RadioButton";
 import { getCategories } from "@/features/jobs/jobSlice";
 import { getFilteredJobs } from "@/features/search/filterByJobSlice";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { SearchNavigationProp } from "@/types/navigation";
 import { useNavigation } from "@react-navigation/native";
-import { useState } from "react";
 import {
-  Button,
   ScrollView,
   StyleSheet,
   Text,
@@ -14,22 +11,13 @@ import {
   View,
 } from "react-native";
 
-const options: string[] = ["jobs", "companies"];
-
 export default function ModalFilter() {
-  const [selectedOption, setSelectedOption] = useState(options[0]);
   const { navigate } = useNavigation<SearchNavigationProp>();
   const dispatch = useAppDispatch();
-  const selectedCategory = useAppSelector(
-    (state) => state.filterByJob.selectedCategory
+  const { selectedCategory, loading } = useAppSelector(
+    (state) => state.filterByJob
   );
-  const page = useAppSelector(
-    (state) => state.filterByJob.filteredJobs.page
-  );
-
-  const onSelect = (option: any) => {
-    setSelectedOption(option);
-  };
+  const page = useAppSelector((state) => state.filterByJob.filteredJobs.page);
 
   const handleFilter = async () => {
     dispatch(getCategories());
@@ -37,10 +25,11 @@ export default function ModalFilter() {
   };
 
   const onSubmit = () => {
-    if (selectedOption === "jobs") {
+    if (selectedCategory) {
       dispatch(getFilteredJobs({ page, category: selectedCategory }));
+    }
+    if (!loading) {
       navigate("Search");
-    } else {
     }
   };
 
@@ -50,17 +39,6 @@ export default function ModalFilter() {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: 50 }}
       >
-        <View style={styles.filterByContainer}>
-          <Text style={styles.title}>Filter By</Text>
-          {options.map((option, index) => (
-            <RadioButton
-              key={index}
-              option={option}
-              selectedOption={selectedOption}
-              onSelect={onSelect}
-            />
-          ))}
-        </View>
         <View style={styles.categoryContainer}>
           <Text style={styles.title}>Category</Text>
           <TouchableOpacity
@@ -74,7 +52,10 @@ export default function ModalFilter() {
           </Text>
         </View>
       </ScrollView>
-      <TouchableOpacity style={styles.filterButton} onPress={onSubmit}>
+      <TouchableOpacity
+        style={styles.filterButton}
+        onPress={onSubmit}
+      >
         <Text style={styles.filterButtonText}>Filter</Text>
       </TouchableOpacity>
     </View>

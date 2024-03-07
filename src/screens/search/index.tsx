@@ -40,7 +40,7 @@ export default function Search() {
   return (
     <View style={styles.container}>
       <SearchBar inputRef={inputRef} />
-      {jobs.length === 0 ? (
+      {jobs.length === 0 && !loading ? (
         <View>
           <Text style={styles.recentJobs}>Recent Jobs</Text>
           <Text style={styles.noSearch}>No search...</Text>
@@ -51,7 +51,7 @@ export default function Search() {
           renderItem={({ item }) => <JobCardWithCompany {...item} />}
           keyExtractor={(item, _) => item.id.toString()}
           ItemSeparatorComponent={() => <View style={styles.seperator}></View>}
-          ListFooterComponent={
+          ListFooterComponent={loading && 
             <View>
               <Text>Loading...</Text>
             </View>
