@@ -2,6 +2,27 @@ import { JobType } from "@/types";
 import { jobsAPI } from "./axios";
 import { fetchCompanyById } from "./companies";
 
+/**
+ * merge jobs with their company
+ * @param jobs
+ * @returns
+ */
+const mergeJobWithCompany = (jobs: JobType[]) => {
+  const jobsWithCompanyPromises = jobs.map(async (job: JobType) => {
+    const companyDetail = await fetchCompanyById(job.company.id);
+    return {
+      ...job,
+      companyDetail: companyDetail,
+    };
+  });
+
+  return jobsWithCompanyPromises;
+};
+
+/**
+ * fetch jobs in home page
+ * @returns
+ */
 export const fetchJobs = async () => {
   try {
     const res = await jobsAPI.get(`/jobs?page=1`);
@@ -11,20 +32,17 @@ export const fetchJobs = async () => {
   }
 };
 
+/**
+ * fetch jobs with their company in daily top jobs
+ * @param page
+ * @returns
+ */
 export const fetchJobsWithCompany = async (page: number) => {
   try {
     const res = await jobsAPI.get(`/jobs?page=${page}`);
     const jobs = res.data.results;
 
-    const jobsWithCompanyPromises = jobs.map(async (job: JobType) => {
-      const companyDetail = await fetchCompanyById(job.company.id);
-      return {
-        ...job,
-        companyDetail: companyDetail,
-      };
-    });
-
-    const jobsWithCompany = await Promise.all(jobsWithCompanyPromises);
+    const jobsWithCompany = await Promise.all(mergeJobWithCompany(jobs));
 
     return jobsWithCompany;
   } catch (error) {
@@ -32,10 +50,20 @@ export const fetchJobsWithCompany = async (page: number) => {
   }
 };
 
+/**
+ * filter jobs by category
+ * @param page
+ * @param category
+ * @returns
+ */
 export const fetchFilteredJobs = async (page: number, category: string) => {
   try {
     const res = await jobsAPI.get(`/jobs?page=${page}&category=${category}`);
-    return res.data.results;
+    const jobs = res.data.results;
+
+    const jobsWithCompany = await Promise.all(mergeJobWithCompany(jobs));
+
+    return jobsWithCompany;
   } catch (error) {
     throw new Error("Failed to fetch filtered Jobs");
   }

@@ -1,12 +1,12 @@
 import { fetchFilteredJobs } from "@/services/jobs";
-import { JobType } from "@/types";
+import { JobsAndCompanies } from "@/types";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 type InitialState = {
   searchText: string;
   filteredJobs: {
-    jobs:JobType[];
-    page:number;
+    jobs: JobsAndCompanies[];
+    page: number;
   };
   loading: boolean;
   error: boolean;
@@ -16,8 +16,8 @@ type InitialState = {
 const initialState: InitialState = {
   searchText: "",
   filteredJobs: {
-    jobs:[],
-    page:1,
+    jobs: [],
+    page: 1,
   },
   loading: false,
   error: false,
@@ -52,16 +52,7 @@ const filterByJobSlice = createSlice({
     });
     builder.addCase(getFilteredJobs.fulfilled, (state, action) => {
       state.loading = false;
-      state.filteredJobs.jobs = [
-        ...state.filteredJobs.jobs,
-        ...action.payload,
-      ]
-     /*  const allJobs = [
-        ...state.filteredJobs.jobs,
-        ...action.payload,
-      ];
-      // remove duplicate jobs
-      state.filteredJobs.jobs = allJobs.filter((job,index)=>allJobs.indexOf(job) === index); */
+      state.filteredJobs.jobs = [...state.filteredJobs.jobs, ...action.payload];
       state.filteredJobs.page++;
     });
     builder.addCase(getFilteredJobs.rejected, (state, action) => {

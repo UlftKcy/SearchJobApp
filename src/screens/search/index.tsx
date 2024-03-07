@@ -5,12 +5,14 @@ import { useCallback, useEffect, useRef } from "react";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { FlatList } from "react-native-gesture-handler";
 import { getFilteredJobs } from "@/features/search/filterByJobSlice";
+import JobCardWithCompany from "@/components/jobs/JobCardWithCompany";
 
 export default function Search() {
   const inputRef = useRef(null);
   const { jobs, page } = useAppSelector(
     (state) => state.filterByJob.filteredJobs
   );
+  const loading = useAppSelector((state) => state.filterByJob.loading);
 
   const selectedCategory = useAppSelector(
     (state) => state.filterByJob.selectedCategory
@@ -24,7 +26,9 @@ export default function Search() {
   );
 
   const loadJobs = () => {
-    dispatch(getFilteredJobs({ page, category: selectedCategory }));
+    if (!loading) {
+      dispatch(getFilteredJobs({ page, category: selectedCategory }));
+    }
   };
 
   useEffect(() => {
@@ -44,19 +48,15 @@ export default function Search() {
       ) : (
         <FlatList
           data={jobs}
-          renderItem={({ item }) => (
-            <View>
-              <Text>{item.name}</Text>
-            </View>
-          )}
+          renderItem={({ item }) => <JobCardWithCompany {...item} />}
           keyExtractor={(item, _) => item.id.toString()}
-          // ItemSeparatorComponent={() => <View style={styles.seperator}></View>}
+          ItemSeparatorComponent={() => <View style={styles.seperator}></View>}
           ListFooterComponent={
             <View>
               <Text>Loading...</Text>
             </View>
           }
-          onEndReachedThreshold={0.5}
+          onEndReachedThreshold={0.1}
           onEndReached={loadJobs}
         />
       )}
@@ -78,5 +78,10 @@ const styles = StyleSheet.create({
   },
   noSearch: {
     fontSize: 16,
+  },
+  seperator: {
+    borderWidth: 0.5,
+    borderColor: "#ddd",
+    marginVertical: 10,
   },
 });

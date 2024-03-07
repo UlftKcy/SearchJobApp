@@ -1,6 +1,5 @@
 import { JobsAndCompanies } from "@/types";
 import {
-  Button,
   Dimensions,
   Image,
   StyleSheet,
@@ -9,7 +8,7 @@ import {
 } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 
-export default function DailyTopJobsCard(job: JobsAndCompanies) {
+export default function JobCardWithCompany(job: JobsAndCompanies) {
   return (
     <View style={styles.container}>
       <View style={styles.job}>
@@ -36,7 +35,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    padding: 16,
     backgroundColor:"#ffff",
   },
   job: {
