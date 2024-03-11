@@ -1,24 +1,19 @@
-import { Dimensions, StyleSheet, Text, View } from "react-native";
+import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useMemo } from "react";
 import { JobLocation, JobType } from "@/types";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import EvilIcons from "react-native-vector-icons/EvilIcons";
+import { useNavigation } from "@react-navigation/native";
+import { ModalNavigationProp } from "@/types/navigation";
 
 export default function JobCard(job: JobType) {
   const jobLocation = useMemo(() => {
     return job.locations.map((location: JobLocation) => location.name);
   }, [job.locations]);
-
-  /*   const jobLevel = useMemo(() => {
-        return job.levels.map((level:JobLevel) => level.name);
-      }, [job.locations]);
-    
-      const jobCategory = useMemo(() => {
-        return job.categories.map((category:JobCategory) => category.name);
-      }, [job.locations]); */
+  const {navigate} = useNavigation<ModalNavigationProp>();
 
   return (
-    <View style={styles.card}>
+    <TouchableOpacity style={styles.card} onPress={()=>navigate("JobDetailModal",{id:job.id})}>
       <View style={styles.cardHeader}>
         <View style={styles.location}>
           <EvilIcons name="location" size={16} color="#ffff" />
@@ -30,15 +25,11 @@ export default function JobCard(job: JobType) {
         <Text style={styles.jobName} numberOfLines={2} ellipsizeMode="tail">
           {job.name}
         </Text>
-        {/* <View style={styles.jobDetail}>
-              <Text style={styles.jobDetailItem}>{jobCategory ?? '--'}</Text>
-              <Text style={styles.jobDetailItem}>{jobLevel ?? '--'}</Text>
-            </View> */}
       </View>
       <View style={styles.cardFooter}>
         <Text style={styles.companyName}>{job.company.name}</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }
 const styles = StyleSheet.create({

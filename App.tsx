@@ -1,5 +1,5 @@
 import { store } from "@/features/store";
-import Router from "@/navigation/Router";
+import RootStackScreen from "@/navigation/RootStackScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Provider } from "react-redux";
@@ -9,7 +9,7 @@ export default function App() {
     <SafeAreaProvider>
       <Provider store={store}>
         <NavigationContainer>
-          <Router />
+          <RootStackScreen />
         </NavigationContainer>
       </Provider>
     </SafeAreaProvider>

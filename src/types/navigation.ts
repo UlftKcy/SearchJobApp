@@ -8,19 +8,23 @@ export type BottomTabParamList = {
 };
 
 export type HomeStackParamList = {
-  Home:undefined;
-  DailyTopJobs:undefined;
-  HiringNow:undefined;
-  RecentlyViewJobs:undefined;
-  SearchStack:undefined;
+  Home: undefined;
+  DailyTopJobs: undefined;
+  HiringNow: undefined;
+  RecentlyViewJobs: undefined;
+  SearchStack: undefined;
 };
 
 export type SearchStackParamList = {
-  Search:undefined;
-  Filter:undefined;
-  Category:undefined;
+  Search: undefined;
+  Filter: undefined;
+  Category: undefined;
+};
+
+export type ModalStackParamList = {
+  JobDetailModal: { id: string };
 };
 
 export type HomeNavigationProp = StackNavigationProp<HomeStackParamList>;
 export type SearchNavigationProp = StackNavigationProp<SearchStackParamList>;
-
+export type ModalNavigationProp = StackNavigationProp<ModalStackParamList>;

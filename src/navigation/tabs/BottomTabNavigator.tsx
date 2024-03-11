@@ -4,13 +4,13 @@ import Favorites from "@/screens/favorites";
 import MyJobs from "@/screens/my-jobs";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
-import HomeStack from "./stacks/HomeStack";
 import HomeSearchBar from "@/screens/home/components/HomeSearchBar";
-import SearchStack from "./stacks/SearchStack";
+import HomeStack from "../stacks/HomeStack";
+import SearchStack from "../stacks/SearchStack";
 
 const Tab = createBottomTabNavigator<BottomTabParamList>();
 
-export default function Router() {
+export default function BottomTabNavigator() {
   return (
     <Tab.Navigator>
       <Tab.Screen

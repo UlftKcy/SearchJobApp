@@ -12,12 +12,12 @@ import { getJobs } from "@/features/jobs/jobSlice";
 import { JobType } from "@/types";
 import JobCard from "./JobCard";
 import { useNavigation } from "@react-navigation/native";
-import { ApplicationNavigationProps } from "@/types/navigation";
+import { HomeNavigationProp } from "@/types/navigation";
 
 export default function TopJobs() {
   const jobs = useAppSelector((state) => state.jobs.jobs);
   const dispatch = useAppDispatch();
-  const { navigate } = useNavigation<ApplicationNavigationProps>();
+  const { navigate } = useNavigation<HomeNavigationProp>();
 
   useEffect(() => {
     dispatch(getJobs());
