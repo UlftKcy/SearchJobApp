@@ -6,7 +6,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 import { FlatList } from "react-native";
 
-export default function ModalCategory() {
+export default function Category() {
   const categories = useAppSelector((state) => state.jobs.categories);
   const category = useAppSelector((state) => state.filterByJob.selectedCategory);
   const dispatch = useAppDispatch();

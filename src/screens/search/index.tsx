@@ -1,14 +1,12 @@
 import { StyleSheet, Text, View } from "react-native";
 import SearchBar from "./components/SearchBar";
-import { useFocusEffect } from "@react-navigation/native";
-import { useCallback, useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { FlatList } from "react-native-gesture-handler";
 import { getFilteredJobs } from "@/features/search/filterByJobSlice";
 import JobCardWithCompany from "@/components/jobs/JobCardWithCompany";
 
 export default function Search() {
-  const inputRef = useRef(null);
   const { jobs, page } = useAppSelector(
     (state) => state.filterByJob.filteredJobs
   );
@@ -18,12 +16,6 @@ export default function Search() {
     (state) => state.filterByJob.selectedCategory
   );
   const dispatch = useAppDispatch();
-
-  useFocusEffect(
-    useCallback(() => {
-      inputRef.current.focus();
-    }, [])
-  );
 
   const loadJobs = () => {
     if (!loading) {
@@ -39,7 +31,7 @@ export default function Search() {
 
   return (
     <View style={styles.container}>
-      <SearchBar inputRef={inputRef} />
+      <SearchBar/>
       {jobs.length === 0 && !loading ? (
         <View>
           <Text style={styles.recentJobs}>Recent Jobs</Text>

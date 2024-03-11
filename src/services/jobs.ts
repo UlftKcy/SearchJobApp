@@ -9,7 +9,9 @@ import { fetchCompanyById } from "./companies";
  */
 const mergeJobWithCompany = (jobs: JobType[]) => {
   const jobsWithCompanyPromises = jobs.map(async (job: JobType) => {
+
     const companyDetail = await fetchCompanyById(job.company.id);
+    
     return {
       ...job,
       companyDetail: companyDetail,

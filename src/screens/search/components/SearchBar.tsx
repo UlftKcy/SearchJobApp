@@ -1,15 +1,23 @@
 import { searchQueryByJob } from "@/features/search/filterByJobSlice";
-import { useAppDispatch } from "@/hooks/redux";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { SearchNavigationProp } from "@/types/navigation";
-import { useNavigation } from "@react-navigation/native";
-import { useState } from "react";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import { useCallback, useRef, useState } from "react";
 import { StyleSheet, TextInput, TouchableOpacity, View } from "react-native";
 import FilterIcon from "react-native-vector-icons/AntDesign";
 
-export default function SearchBar({inputRef}) {
-  const [searchText, setSearchText] = useState("");
+export default function SearchBar() {
+  const inputRef = useRef(null);
+  const initializeSearchText = useAppSelector((state) => state.filterByJob.searchText);
+  const [searchText, setSearchText] = useState(initializeSearchText);
   const dispatch = useAppDispatch();
   const { navigate } = useNavigation<SearchNavigationProp>();
+
+  useFocusEffect(
+    useCallback(() => {
+      inputRef.current.focus();
+    }, [])
+  );
 
   const onSubmit = () => {
     dispatch(searchQueryByJob(searchText));
@@ -30,7 +38,7 @@ export default function SearchBar({inputRef}) {
       />
       <TouchableOpacity
         style={styles.buttonWrapper}
-        onPress={() => navigate("ModalFilter")}
+        onPress={() => navigate("Filter")}
       >
         <FilterIcon name="filter" size={26} style={styles.button} />
       </TouchableOpacity>

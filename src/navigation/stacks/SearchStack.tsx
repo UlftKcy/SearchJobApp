@@ -1,5 +1,5 @@
-import ModalCategory from "@/screens/modals/ModalCategory";
-import ModalFilter from "@/screens/modals/ModalFilter";
+import Category from "@/screens/modals/Category";
+import Filter from "@/screens/modals/Filter";
 import Search from "@/screens/search";
 import { SearchStackParamList } from "@/types/navigation";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -12,13 +12,13 @@ export default function SearchStack() {
       <Stack.Screen name="Search" component={Search} />
       <Stack.Group>
         <Stack.Screen
-          name="ModalFilter"
-          component={ModalFilter}
+          name="Filter"
+          component={Filter}
           options={{ title: "Filter" }}
         />
         <Stack.Screen
-          name="ModalCategory"
-          component={ModalCategory}
+          name="Category"
+          component={Category}
           options={{ title: "Select Category" }}
         />
       </Stack.Group>

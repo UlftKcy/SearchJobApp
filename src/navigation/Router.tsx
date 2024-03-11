@@ -20,11 +20,11 @@ export default function Router() {
           tabBarIcon: ({ color }) => (
             <AntDesign name="home" size={24} color={color} />
           ),
-          title:"Home",
-          headerTitle:()=><HomeSearchBar/>,
-          headerStyle:{
-            height:120,
-          }
+          title: "Home",
+          headerTitle: () => <HomeSearchBar />,
+          headerStyle: {
+            height: 120,
+          },
         }}
       />
       <Tab.Screen
@@ -34,8 +34,8 @@ export default function Router() {
           tabBarIcon: ({ color }) => (
             <AntDesign name="search1" size={24} color={color} />
           ),
-          title:"Search",
-          headerShown:false,
+          title: "Search",
+          headerShown: false,
         }}
       />
       <Tab.Screen

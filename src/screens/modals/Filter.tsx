@@ -11,7 +11,7 @@ import {
   View,
 } from "react-native";
 
-export default function ModalFilter() {
+export default function Filter() {
   const { navigate } = useNavigation<SearchNavigationProp>();
   const dispatch = useAppDispatch();
   const { selectedCategory, loading } = useAppSelector(
@@ -21,7 +21,7 @@ export default function ModalFilter() {
 
   const handleFilter = async () => {
     dispatch(getCategories());
-    navigate("ModalCategory");
+    navigate("Category");
   };
 
   const onSubmit = () => {

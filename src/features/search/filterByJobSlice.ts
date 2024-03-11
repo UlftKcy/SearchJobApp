@@ -39,13 +39,11 @@ const filterByJobSlice = createSlice({
     searchQueryByJob: (state, action) => {
       const searchQuery = action.payload;
       state.filteredJobs.jobs = state.filteredJobs.jobs.filter((job)=>job.name.toLocaleLowerCase().includes(searchQuery.toLocaleLowerCase()));
-      state.loading = false;
     },
     selectCategory: (state, action) => {
       state.selectedCategory = action.payload;
       state.filteredJobs.jobs = [];
       state.filteredJobs.page = 1;
-      state.searchText
     },
   },
   extraReducers: (builder) => {
