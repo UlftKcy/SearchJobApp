@@ -1,4 +1,4 @@
-import { getCategories } from "@/features/jobs/jobSlice";
+import { getCategories } from "@/features/jobs/jobsWithCompanySlice";
 import { getFilteredJobs } from "@/features/search/filterByJobSlice";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { SearchNavigationProp } from "@/types/navigation";

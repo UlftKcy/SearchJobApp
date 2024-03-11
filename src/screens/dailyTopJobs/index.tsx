@@ -1,15 +1,15 @@
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { useEffect } from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";
-import { getJobsAndCompanies } from "@/features/jobs/jobsAndCompaniesSlice";
 import JobCardWithCompany from "@/components/jobs/JobCardWithCompany";
+import { getJobsWithCompany } from "@/features/jobs/jobsWithCompanySlice";
 
 export default function DailyTopJobsPage() {
-  const {jobs,page} = useAppSelector((state) => state.jobsAndCompanies.jobsAndCompanies);
+  const {jobs,page} = useAppSelector((state) => state.jobsWithCompany.jobsWithCompany);
   const dispatch = useAppDispatch();
 
   const loadJobsAndCompanies = () => {
-    dispatch(getJobsAndCompanies(page));
+    dispatch(getJobsWithCompany(page));
   }
 
   useEffect(() => {
@@ -31,7 +31,7 @@ export default function DailyTopJobsPage() {
 }
 const styles = StyleSheet.create({
   container: {
-    flex:1,
+   
     paddingHorizontal: 16,
     backgroundColor: "#ffff",
   },

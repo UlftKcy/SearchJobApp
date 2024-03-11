@@ -1,4 +1,4 @@
-import { JobsAndCompanies } from "@/types";
+import { JobsWithCompany } from "@/types";
 import {
   Dimensions,
   Image,
@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 
-export default function JobCardWithCompany(job: JobsAndCompanies) {
+export default function JobCardWithCompany(job: JobsWithCompany) {
   return (
     <View style={styles.container}>
       <View style={styles.job}>

@@ -15,6 +15,10 @@ export interface JobType {
   };
 }
 
+export interface JobsWithCompany extends JobType{
+  companyDetail:CompanyType
+}
+
 export interface JobLocation {
   name: string;
 }
@@ -49,6 +53,3 @@ export interface CompanyType {
     name: string;
   }
 
-  export interface JobsAndCompanies extends JobType{
-    companyDetail:CompanyType
-  }

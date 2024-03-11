@@ -7,7 +7,7 @@ import { useState } from "react";
 import { FlatList } from "react-native";
 
 export default function Category() {
-  const categories = useAppSelector((state) => state.jobs.categories);
+  const categories = useAppSelector((state) => state.jobsWithCompany.categories);
   const category = useAppSelector((state) => state.filterByJob.selectedCategory);
   const dispatch = useAppDispatch();
   const [selectedCategory, setSelectedCategory] = useState(category);
@@ -31,7 +31,7 @@ export default function Category() {
         />
       )}
       keyExtractor={(_, index) => index.toString()}
-      contentContainerStyle={{ flex: 1, padding: 16, backgroundColor: "#ffff" }}
+      contentContainerStyle={{ padding: 16, backgroundColor: "#ffff" }}
     />
   );
 }

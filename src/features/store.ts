@@ -1,13 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import jobSlice from "./jobs/jobSlice";
 import companySlice from "./companies/companySlice";
-import jobsAndCompaniesSlice from "./jobs/jobsAndCompaniesSlice";
 import filterByJobSlice from "./search/filterByJobSlice";
+import jobsWithCompanySlice from "./jobs/jobsWithCompanySlice";
 
 export const store = configureStore({
     reducer:{
-        jobs:jobSlice,
-        jobsAndCompanies:jobsAndCompaniesSlice,
+        jobsWithCompany:jobsWithCompanySlice,
         companies:companySlice,
         filterByJob:filterByJobSlice,
     }

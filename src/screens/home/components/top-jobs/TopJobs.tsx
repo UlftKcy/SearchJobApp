@@ -8,19 +8,19 @@ import {
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { Fragment, useEffect } from "react";
-import { getJobs } from "@/features/jobs/jobSlice";
 import { JobType } from "@/types";
 import JobCard from "./JobCard";
 import { useNavigation } from "@react-navigation/native";
 import { HomeNavigationProp } from "@/types/navigation";
+import { getJobsWithCompany } from "@/features/jobs/jobsWithCompanySlice";
 
 export default function TopJobs() {
-  const jobs = useAppSelector((state) => state.jobs.jobs);
+  const jobs = useAppSelector((state) => state.jobsWithCompany.jobsWithCompany.jobs);
   const dispatch = useAppDispatch();
   const { navigate } = useNavigation<HomeNavigationProp>();
 
   useEffect(() => {
-    dispatch(getJobs());
+    dispatch(getJobsWithCompany(1));
   }, [dispatch]);
 
   return (
