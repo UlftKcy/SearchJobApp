@@ -1,7 +1,6 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import JobDetailModal from "./modals/JobDetailModal";
 import BottomTabNavigator from "./tabs/BottomTabNavigator";
-import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
@@ -29,24 +28,6 @@ export default function RootStackScreen() {
         <RootStack.Screen
           name="JobDetailModal"
           component={JobDetailModal}
-          options={{
-            headerLeft: () => (
-              <TouchableOpacity onPress={() => navigation.goBack()}>
-                <MaterialIcons name="close" size={24} color="#4966F7" />
-              </TouchableOpacity>
-            ),
-            headerRight: () => (
-              <MaterialIcons
-                name="favorite-outline"
-                size={24}
-                color="#4966F7"
-              />
-            ),
-            headerStyle: {
-              height: 100,
-            },
-            headerTitle:""
-          }}
         />
       </RootStack.Group>
     </RootStack.Navigator>

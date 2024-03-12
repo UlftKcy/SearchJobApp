@@ -1,7 +1,12 @@
-import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  Dimensions,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { useMemo } from "react";
 import { JobLocation, JobType } from "@/types";
-import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import EvilIcons from "react-native-vector-icons/EvilIcons";
 import { useNavigation } from "@react-navigation/native";
 import { ModalNavigationProp } from "@/types/navigation";
@@ -11,25 +16,25 @@ export default function JobCard(job: JobType) {
     return job.locations.map((location: JobLocation) => location.name);
   }, [job.locations]);
 
-  const {navigate} = useNavigation<ModalNavigationProp>();
+  const { navigate } = useNavigation<ModalNavigationProp>();
 
   return (
-    <TouchableOpacity style={styles.card} onPress={()=>navigate("JobDetailModal",{selectedJob:job})}>
+    <TouchableOpacity
+      style={styles.card}
+      onPress={() => navigate("JobDetailModal", { selectedJob: job })}
+    >
       <View style={styles.cardHeader}>
         <View style={styles.location}>
           <EvilIcons name="location" size={16} color="#ffff" />
           <Text style={styles.locationText}>{jobLocation ?? "--"}</Text>
         </View>
-        <MaterialIcons name="favorite-outline" size={20} color="#ffff" />
       </View>
       <View style={styles.cardBody}>
         <Text style={styles.jobName} numberOfLines={2} ellipsizeMode="tail">
           {job.name}
         </Text>
       </View>
-      <View style={styles.cardFooter}>
-        <Text style={styles.companyName}>{job.company.name}</Text>
-      </View>
+      <Text style={styles.companyName}>{job.company.name}</Text>
     </TouchableOpacity>
   );
 }
@@ -69,14 +74,6 @@ const styles = StyleSheet.create({
     letterSpacing: 0.5,
     marginBottom: 8,
   },
-  /*   jobDetail: {
-      flexDirection: "column",
-    },
-    jobDetailItem: {
-      color: "#ffff",
-      fontWeight: "300",
-    }, */
-  cardFooter: {},
   companyName: {
     color: "#ffff",
     fontSize: 16,

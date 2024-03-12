@@ -1,8 +1,5 @@
-import {
-  addFavorite,
-  removeFavorite,
-} from "@/features/jobs/jobsWithCompanySlice";
-import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { removeJob } from "@/features/jobs/jobsWithCompanySlice";
+import { useAppDispatch } from "@/hooks/redux";
 import { JobsWithCompany } from "@/types";
 import {
   Dimensions,
@@ -14,22 +11,8 @@ import {
 } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 
-export default function JobCardWithCompany(job: JobsWithCompany) {
-  const favoriteJobs = useAppSelector(
-    (state) => state.jobsWithCompany.favoriteJobs
-  );
-  const isFavoriteJob = favoriteJobs.find(
-    (favoriteJob) => favoriteJob.id === job.id
-  )
-    ? true
-    : false;
-  const dispatch = useAppDispatch();
-
-  const onFavoriteJob = () => {
-    isFavoriteJob
-      ? dispatch(removeFavorite(job.id))
-      : dispatch(addFavorite(job));
-  };
+export default function AppliedJobCard(job: JobsWithCompany) {
+    const dispatch = useAppDispatch();
 
   return (
     <View style={styles.container}>
@@ -44,18 +27,10 @@ export default function JobCardWithCompany(job: JobsWithCompany) {
         />
         <View style={styles.jobDetail}>
           <Text style={styles.company}>{job.company.name}</Text>
-          <Text style={styles.name} numberOfLines={2} ellipsizeMode="tail">
-            {job.name}
-          </Text>
+          <Text style={styles.name} numberOfLines={2} ellipsizeMode="tail">{job.name}</Text>
         </View>
       </View>
-      <TouchableOpacity onPress={onFavoriteJob}>
-        <MaterialIcons
-          name={`${isFavoriteJob ? "favorite" : "favorite-outline"}`}
-          size={24}
-          color="#4966F7"
-        />
-      </TouchableOpacity>
+      <TouchableOpacity onPress={()=>dispatch(removeJob(job.id))}><MaterialIcons name="close" size={20} color="#4966F7" /></TouchableOpacity>
     </View>
   );
 }
@@ -65,7 +40,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: "#ffff",
+    backgroundColor:"#ffff",
     borderTopWidth: 0.5,
     borderColor: "#ddd",
     paddingHorizontal:16,
@@ -77,7 +52,7 @@ const styles = StyleSheet.create({
   },
   jobDetail: {
     flexDirection: "column",
-    width: Dimensions.get("window").width / 2,
+    width:Dimensions.get("window").width/2,
   },
   image: {
     borderRadius: 8,

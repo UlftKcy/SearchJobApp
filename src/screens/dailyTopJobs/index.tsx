@@ -31,7 +31,6 @@ export default function DailyTopJobsPage() {
 }
 const styles = StyleSheet.create({
   container: {
-   
     paddingHorizontal: 16,
     backgroundColor: "#ffff",
   },

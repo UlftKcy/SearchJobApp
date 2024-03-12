@@ -1,10 +1,13 @@
-import { applyJob } from "@/features/jobs/jobsWithCompanySlice";
-import { useAppDispatch } from "@/hooks/redux";
+import {
+  addFavorite,
+  applyJob,
+  removeFavorite,
+} from "@/features/jobs/jobsWithCompanySlice";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { JobLocation } from "@/types";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import {
   View,
-  Button,
   StyleSheet,
   Text,
   Dimensions,
@@ -14,7 +17,8 @@ import {
   TouchableOpacity,
 } from "react-native";
 import RenderHtml from "react-native-render-html";
-import Toast from 'react-native-toast-message';
+import Toast from "react-native-toast-message";
+import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 
 export default function JobDetailModal({ navigation, route }) {
   const { selectedJob } = route.params;
@@ -23,6 +27,37 @@ export default function JobDetailModal({ navigation, route }) {
   }, [selectedJob.locations]);
   const { width } = useWindowDimensions();
   const dispatch = useAppDispatch();
+
+  const favoriteJobs = useAppSelector(
+    (state) => state.jobsWithCompany.favoriteJobs
+  );
+  const isFavoriteJob = favoriteJobs.find(
+    (favoriteJob) => favoriteJob.id === selectedJob.id
+  )
+    ? true
+    : false;
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => (
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <MaterialIcons name="close" size={24} color="#4966F7" />
+        </TouchableOpacity>
+      ),
+      headerRight: () => (
+        <MaterialIcons
+          name={`${isFavoriteJob ? "favorite" : "favorite-outline"}`}
+          size={24}
+          color="#4966F7"
+          onPress={onFavoriteJob}
+        />
+      ),
+      headerStyle: {
+        height: 100,
+      },
+      headerTitle: "",
+    });
+  });
 
   const source = {
     html: `
@@ -33,11 +68,17 @@ export default function JobDetailModal({ navigation, route }) {
     dispatch(applyJob(selectedJob));
     navigation.goBack();
     Toast.show({
-      type: 'success',
-      text1: 'Congratulations',
+      type: "success",
+      text1: "Congratulations",
       text2: `Your application was sent to ${selectedJob.company.name}`,
-      onPress:()=>Toast.hide(),
+      onPress: () => Toast.hide(),
     });
+  };
+
+  const onFavoriteJob = () => {
+    isFavoriteJob
+      ? dispatch(removeFavorite(selectedJob.id))
+      : dispatch(addFavorite(selectedJob));
   };
 
   return (

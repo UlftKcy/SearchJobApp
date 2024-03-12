@@ -4,11 +4,15 @@ import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { SearchNavigationProp } from "@/types/navigation";
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
-import { FlatList } from "react-native";
+import { ScrollView } from "react-native";
 
 export default function Category() {
-  const categories = useAppSelector((state) => state.jobsWithCompany.categories);
-  const category = useAppSelector((state) => state.filterByJob.selectedCategory);
+  const categories = useAppSelector(
+    (state) => state.jobsWithCompany.categories
+  );
+  const category = useAppSelector(
+    (state) => state.filterByJob.selectedCategory
+  );
   const dispatch = useAppDispatch();
   const [selectedCategory, setSelectedCategory] = useState(category);
   const navigation = useNavigation<SearchNavigationProp>();
@@ -21,17 +25,20 @@ export default function Category() {
   };
 
   return (
-    <FlatList
-      data={categories}
-      renderItem={({ item }) => (
-        <RadioButton
-          option={item}
-          selectedOption={selectedCategory}
-          onSelect={onSelect}
-        />
-      )}
-      keyExtractor={(_, index) => index.toString()}
+    <ScrollView
+      showsVerticalScrollIndicator={false}
       contentContainerStyle={{ padding: 16, backgroundColor: "#ffff" }}
-    />
+    >
+      {categories.map((category, index) => (
+        <>
+          <RadioButton
+            key={index.toString()}
+            option={category}
+            selectedOption={selectedCategory}
+            onSelect={onSelect}
+          />
+        </>
+      ))}
+    </ScrollView>
   );
 }

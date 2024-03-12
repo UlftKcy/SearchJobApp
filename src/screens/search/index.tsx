@@ -33,7 +33,7 @@ export default function Search() {
     <View style={styles.container}>
       <SearchBar/>
       {jobs.length === 0 && !loading ? (
-        <View>
+        <View style={{paddingHorizontal:16}}>
           <Text style={styles.recentJobs}>Recent Jobs</Text>
           <Text style={styles.noSearch}>No search...</Text>
         </View>
@@ -42,9 +42,8 @@ export default function Search() {
           data={jobs}
           renderItem={({ item }) => <JobCardWithCompany {...item} />}
           keyExtractor={(item, _) => item.id.toString()}
-          ItemSeparatorComponent={() => <View style={styles.seperator}></View>}
           ListFooterComponent={loading && 
-            <View>
+            <View style={{paddingHorizontal:16}}>
               <Text>Loading...</Text>
             </View>
           }
@@ -60,7 +59,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
-    padding: 16,
     backgroundColor: "#ffff",
   },
   recentJobs: {
@@ -70,10 +68,5 @@ const styles = StyleSheet.create({
   },
   noSearch: {
     fontSize: 16,
-  },
-  seperator: {
-    borderWidth: 0.5,
-    borderColor: "#ddd",
-    marginVertical: 10,
   },
 });

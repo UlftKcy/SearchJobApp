@@ -8,7 +8,8 @@ type InitialState = {
     page: number;
   };
   categories: string[];
-  appliedJobs:JobsWithCompany[];
+  appliedJobs: JobsWithCompany[];
+  favoriteJobs: JobsWithCompany[];
   loading: boolean;
   error: boolean;
 };
@@ -18,7 +19,8 @@ const initialState: InitialState = {
     page: 1,
   },
   categories: [],
-  appliedJobs:[],
+  appliedJobs: [],
+  favoriteJobs: [],
   loading: false,
   error: false,
 };
@@ -46,9 +48,22 @@ const jobsWithCompanySlice = createSlice({
         }
       });
     },
-    applyJob:(state,action)=>{
-      state.appliedJobs = [...state.appliedJobs,action.payload];
-    }
+    applyJob: (state, action) => {
+      state.appliedJobs = [...state.appliedJobs, action.payload];
+    },
+    removeJob: (state, action) => {
+      state.appliedJobs = state.appliedJobs.filter(
+        (job) => job.id !== action.payload
+      );
+    },
+    addFavorite: (state, action) => {
+      state.favoriteJobs = [...state.favoriteJobs, action.payload];
+    },
+    removeFavorite: (state, action) => {
+      state.favoriteJobs = state.favoriteJobs.filter(
+        (job) => job.id !== action.payload
+      );
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getJobsWithCompany.pending, (state, action) => {
@@ -70,5 +85,11 @@ const jobsWithCompanySlice = createSlice({
   },
 });
 
-export const { getCategories,applyJob } = jobsWithCompanySlice.actions;
+export const {
+  getCategories,
+  applyJob,
+  removeJob,
+  addFavorite,
+  removeFavorite,
+} = jobsWithCompanySlice.actions;
 export default jobsWithCompanySlice.reducer;
