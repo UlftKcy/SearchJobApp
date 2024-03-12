@@ -18,7 +18,7 @@ export const getJobById = createAsyncThunk("job/get", async () => {
   return res;
 });
 
-export const selectedJob = createSlice({
+export const selectedJobSlice = createSlice({
   name: "selectedJob",
   initialState: initialState,
   reducers: {},
@@ -38,4 +38,4 @@ export const selectedJob = createSlice({
   },
 });
 
-export default selectedJob.reducer;
+export default selectedJobSlice.reducer;

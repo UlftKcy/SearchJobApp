@@ -10,10 +10,11 @@ export default function JobCard(job: JobType) {
   const jobLocation = useMemo(() => {
     return job.locations.map((location: JobLocation) => location.name);
   }, [job.locations]);
+
   const {navigate} = useNavigation<ModalNavigationProp>();
 
   return (
-    <TouchableOpacity style={styles.card} onPress={()=>navigate("JobDetailModal",{id:job.id})}>
+    <TouchableOpacity style={styles.card} onPress={()=>navigate("JobDetailModal",{selectedJob:job})}>
       <View style={styles.cardHeader}>
         <View style={styles.location}>
           <EvilIcons name="location" size={16} color="#ffff" />

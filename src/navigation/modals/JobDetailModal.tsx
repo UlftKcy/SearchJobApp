@@ -1,65 +1,91 @@
-import { useTheme } from "@react-navigation/native";
-import { useCardAnimation } from "@react-navigation/stack";
+import { JobLocation } from "@/types";
+import { useMemo } from "react";
 import {
-  Animated,
   View,
-  Pressable,
   Button,
   StyleSheet,
+  Text,
+  Dimensions,
+  Image,
+  ScrollView,
   useWindowDimensions,
 } from "react-native";
+import RenderHtml from 'react-native-render-html';
 
 export default function JobDetailModal({ navigation, route }) {
-  const { width, height } = useWindowDimensions();
-  const { current } = useCardAnimation();
-  const { colors } = useTheme();
-  // job detail id
-  const { id } = route.params;
+  const { selectedJob } = route.params;
+  const jobLocation = useMemo(() => {
+    return selectedJob.locations.map((location: JobLocation) => location.name);
+  }, [selectedJob.locations]);
+  const { width } = useWindowDimensions();
+
+  const source = {
+    html: `
+    ${selectedJob.contents}`
+  };
 
   return (
-    <View style={styles.container}>
-      <Pressable
-        style={[
-          StyleSheet.absoluteFill,
-          { backgroundColor: "rgba(0, 0, 0, 0.5)" },
-        ]}
-        onPress={navigation.goBack}
-      />
-      <Animated.View
-        style={{
-          padding: 16,
-          width: width,
-          height: height / 1.2,
-          position: "absolute",
-          bottom: 0,
-          borderTopLeftRadius: 20,
-          borderTopRightRadius: 20,
-          backgroundColor: colors.card,
-          transform: [
-            {
-              scale: current.progress.interpolate({
-                inputRange: [0, 1],
-                outputRange: [0.9, 1],
-                extrapolate: "clamp",
-              }),
-            },
-          ],
-        }}
-      >
-        <Button
-          title="Okay"
-          color={colors.primary}
-          onPress={navigation.goBack}
+    <ScrollView showsVerticalScrollIndicator={false} style={styles.container} contentContainerStyle={{ paddingBottom: 50 }}>
+      <Text style={styles.jobName}>{selectedJob.name}</Text>
+      <View style={styles.companyContainer}>
+        <Image
+          source={{ uri: selectedJob.companyDetail.refs.logo_image }}
+          width={Dimensions.get("window").width / 6}
+          height={Dimensions.get("window").width / 6}
+          resizeMode="center"
+          alt={selectedJob.company.name}
+          style={styles.image}
         />
-      </Animated.View>
-    </View>
+        <View style={styles.companyDetail}>
+          <Text style={styles.companyName}>{selectedJob.company.name}</Text>
+          <Text
+            style={styles.companyLocation}
+            numberOfLines={2}
+            ellipsizeMode="tail"
+          >
+            {jobLocation ?? "--"}
+          </Text>
+        </View>
+      </View>
+      <View style={styles.content}>
+      <RenderHtml
+      contentWidth={width}
+      source={source}
+    />
+      </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    padding: 16,
+    backgroundColor: "#ffff",
   },
+  jobName: {
+    fontSize: 22,
+    fontWeight: "500",
+  },
+  companyContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  companyDetail: {
+    flexDirection: "column",
+    width: Dimensions.get("window").width / 2,
+  },
+  image: {
+    borderRadius: 8,
+    marginRight: 12,
+  },
+  companyName: {
+    color: "#2B2A35",
+    fontSize: 16,
+    fontWeight: "600",
+  },
+  companyLocation: { fontWeight: "400" },
+  content:{
+
+  }
 });

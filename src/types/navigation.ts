@@ -1,4 +1,5 @@
 import type { StackNavigationProp } from "@react-navigation/stack";
+import { JobType } from ".";
 
 export type BottomTabParamList = {
   HomeStack: undefined;
@@ -22,7 +23,7 @@ export type SearchStackParamList = {
 };
 
 export type ModalStackParamList = {
-  JobDetailModal: { id: string };
+  JobDetailModal: { selectedJob: JobType };
 };
 
 export type HomeNavigationProp = StackNavigationProp<HomeStackParamList>;
