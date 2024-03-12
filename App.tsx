@@ -1,15 +1,16 @@
-import { store } from "@/features/store";
-import RootStackScreen from "@/navigation/RootStackScreen";
-import { NavigationContainer } from "@react-navigation/native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import Toast from "react-native-toast-message";
 import { Provider } from "react-redux";
+import { store } from "@/features/store";
+import { NavigationContainer } from "@react-navigation/native";
+import RootStackScreen from "@/navigation/RootStackScreen";
+import Toast from "react-native-toast-message";
+import { theme } from "@/config/theme";
 
 export default function App() {
   return (
     <SafeAreaProvider>
       <Provider store={store}>
-        <NavigationContainer>
+        <NavigationContainer theme={theme}>
           <RootStackScreen />
         </NavigationContainer>
         <Toast position="bottom" bottomOffset={50} />

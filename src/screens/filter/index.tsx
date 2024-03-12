@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
   },
   categoryButton: {
     borderWidth: 1,
-    borderColor: "#DDDFE5",
+    borderColor: "rgb(199, 199, 204)",
     borderRadius: 24,
     padding: 14,
   },

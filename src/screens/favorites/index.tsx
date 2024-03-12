@@ -1,12 +1,14 @@
 import JobCardWithCompany from "@/components/jobs/JobCardWithCompany";
 import { useAppSelector } from "@/hooks/redux";
+import { useTheme } from "@react-navigation/native";
 import { ScrollView, Text, View } from "react-native";
 
 export default function Favorites() {
     const favoriteJobs = useAppSelector(state => state.jobsWithCompany.favoriteJobs);
+    const {colors} = useTheme();
 
     return (
-        <View style={{flex: 1,backgroundColor:"#ffff"}}>
+        <View style={{flex: 1,backgroundColor:colors.background}}>
             {
                 favoriteJobs.length === 0 ? (
                     <View style={{flex:1,justifyContent:"center",alignItems:"center"}}>

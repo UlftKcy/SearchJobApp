@@ -5,6 +5,7 @@ import {
 } from "@/features/jobs/jobsWithCompanySlice";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { JobLocation } from "@/types";
+import { useTheme } from "@react-navigation/native";
 import { useEffect, useMemo } from "react";
 import {
   View,
@@ -27,6 +28,7 @@ export default function JobDetailModal({ navigation, route }) {
   }, [selectedJob.locations]);
   const { width } = useWindowDimensions();
   const dispatch = useAppDispatch();
+  const {colors} = useTheme();
 
   const favoriteJobs = useAppSelector(
     (state) => state.jobsWithCompany.favoriteJobs
@@ -41,14 +43,14 @@ export default function JobDetailModal({ navigation, route }) {
     navigation.setOptions({
       headerLeft: () => (
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <MaterialIcons name="close" size={24} color="#4966F7" />
+          <MaterialIcons name="close" size={24} color={colors.primary} />
         </TouchableOpacity>
       ),
       headerRight: () => (
         <MaterialIcons
           name={`${isFavoriteJob ? "favorite" : "favorite-outline"}`}
           size={24}
-          color="#4966F7"
+          color={colors.primary}
           onPress={onFavoriteJob}
         />
       ),
@@ -126,6 +128,7 @@ const styles = StyleSheet.create({
   jobName: {
     fontSize: 22,
     fontWeight: "500",
+    textTransform:"capitalize",
   },
   companyContainer: {
     flexDirection: "row",

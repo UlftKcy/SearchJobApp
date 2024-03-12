@@ -5,16 +5,14 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { useMemo } from "react";
-import { JobLocation, JobType } from "@/types";
 import EvilIcons from "react-native-vector-icons/EvilIcons";
 import { useNavigation } from "@react-navigation/native";
 import { ModalNavigationProp } from "@/types/navigation";
+import { handleJobLocation } from "@/utils/jobLocation";
+import { JobType } from "@/types";
 
 export default function JobCard(job: JobType) {
-  const jobLocation = useMemo(() => {
-    return job.locations.map((location: JobLocation) => location.name);
-  }, [job.locations]);
+  const jobLocation = handleJobLocation(job);
 
   const { navigate } = useNavigation<ModalNavigationProp>();
 

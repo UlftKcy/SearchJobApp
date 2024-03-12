@@ -11,10 +11,13 @@ import {
 } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import CompanyCard from "./CompanyCard";
+import { useTheme } from "@react-navigation/native";
+import SeperatorList from "@/components/ui/SeperatorList";
 
 export default function HiringNow() {
   const companies = useAppSelector((state) => state.companies.companies).slice(0,3);
   const dispatch = useAppDispatch();
+  const { colors } = useTheme();
 
   useEffect(() => {
     dispatch(getCompanies());
@@ -26,7 +29,7 @@ export default function HiringNow() {
       <View style={styles.header}>
         <Text style={styles.title}>Hiring Now</Text>
         <TouchableOpacity style={styles.moreWrapper}>
-          <Text style={styles.more}>MORE</Text>
+          <Text style={{ color: colors.primary, fontWeight: "700" }}>MORE</Text>
           <MaterialIcons
             name="keyboard-arrow-right"
             size={18}
@@ -41,7 +44,7 @@ export default function HiringNow() {
         )}
         keyExtractor={(item) => String(item.id)}
         initialNumToRender={3}
-        ItemSeparatorComponent={() => <View style={styles.seperator}></View>}
+        ItemSeparatorComponent={() => <SeperatorList/>}
       />
     </Fragment>
   );
@@ -61,13 +64,5 @@ const styles = StyleSheet.create({
   moreWrapper: {
     flexDirection: "row",
     alignItems: "center",
-  },
-  more: {
-    color: "#334AC0",
-    fontWeight: "700",
-  },
-  seperator: {
-    borderWidth: 0.5,
-    borderColor: "#ddd",
   },
 });

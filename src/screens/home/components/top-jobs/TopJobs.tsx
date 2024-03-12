@@ -10,14 +10,17 @@ import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { Fragment, useEffect } from "react";
 import { JobType } from "@/types";
 import JobCard from "./JobCard";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useTheme } from "@react-navigation/native";
 import { HomeNavigationProp } from "@/types/navigation";
 import { getJobsWithCompany } from "@/features/jobs/jobsWithCompanySlice";
 
 export default function TopJobs() {
-  const jobs = useAppSelector((state) => state.jobsWithCompany.jobsWithCompany.jobs);
+  const jobs = useAppSelector(
+    (state) => state.jobsWithCompany.jobsWithCompany.jobs
+  ).slice(0, 10);
   const dispatch = useAppDispatch();
   const { navigate } = useNavigation<HomeNavigationProp>();
+  const { colors } = useTheme();
 
   useEffect(() => {
     dispatch(getJobsWithCompany(1));
@@ -31,7 +34,9 @@ export default function TopJobs() {
           style={styles.seeAllWrapper}
           onPress={() => navigate("DailyTopJobs")}
         >
-          <Text style={styles.seeAll}>SEE ALL</Text>
+          <Text style={{ color: colors.primary, fontWeight: "700" }}>
+            SEE ALL
+          </Text>
           <MaterialIcons
             name="keyboard-arrow-right"
             size={18}
@@ -42,7 +47,7 @@ export default function TopJobs() {
       <FlatList
         data={jobs}
         renderItem={({ item }: { item: JobType }) => <JobCard {...item} />}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(_, index) => index.toString()}
         initialNumToRender={3}
         horizontal={true}
       />
@@ -64,9 +69,5 @@ const styles = StyleSheet.create({
   seeAllWrapper: {
     flexDirection: "row",
     alignItems: "center",
-  },
-  seeAll: {
-    color: "#334AC0",
-    fontWeight: "700",
   },
 });

@@ -2,11 +2,12 @@ import RadioButton from "@/components/ui/RadioButton";
 import { selectCategory } from "@/features/search/filterByJobSlice";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { SearchNavigationProp } from "@/types/navigation";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useTheme } from "@react-navigation/native";
 import { useState } from "react";
 import { ScrollView } from "react-native";
 
 export default function Category() {
+  const {colors} = useTheme();
   const categories = useAppSelector(
     (state) => state.jobsWithCompany.categories
   );
@@ -27,17 +28,15 @@ export default function Category() {
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
-      contentContainerStyle={{ padding: 16, backgroundColor: "#ffff" }}
+      contentContainerStyle={{ padding: 16, backgroundColor: colors.background }}
     >
       {categories.map((category, index) => (
-        <>
-          <RadioButton
-            key={index.toString()}
-            option={category}
-            selectedOption={selectedCategory}
-            onSelect={onSelect}
-          />
-        </>
+        <RadioButton
+          key={index.toString()}
+          option={category}
+          selectedOption={selectedCategory}
+          onSelect={onSelect}
+        />
       ))}
     </ScrollView>
   );

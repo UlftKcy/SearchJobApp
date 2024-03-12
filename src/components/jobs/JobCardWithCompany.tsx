@@ -4,6 +4,8 @@ import {
 } from "@/features/jobs/jobsWithCompanySlice";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { JobsWithCompany } from "@/types";
+import { ModalNavigationProp } from "@/types/navigation";
+import { useNavigation } from "@react-navigation/native";
 import {
   Dimensions,
   Image,
@@ -15,6 +17,9 @@ import {
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 
 export default function JobCardWithCompany(job: JobsWithCompany) {
+  const selectedJob = job;
+  const { navigate } = useNavigation<ModalNavigationProp>();
+
   const favoriteJobs = useAppSelector(
     (state) => state.jobsWithCompany.favoriteJobs
   );
@@ -32,21 +37,24 @@ export default function JobCardWithCompany(job: JobsWithCompany) {
   };
 
   return (
-    <View style={styles.container}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => navigate("JobDetailModal", { selectedJob: job })}
+    >
       <View style={styles.job}>
         <Image
           source={{ uri: job.companyDetail.refs.logo_image }}
-          width={Dimensions.get("window").width / 8}
-          height={Dimensions.get("window").width / 8}
+          width={Dimensions.get("window").width / 6}
+          height={Dimensions.get("window").width / 6}
           resizeMode="center"
           alt={job.company.name}
           style={styles.image}
         />
         <View style={styles.jobDetail}>
-          <Text style={styles.company}>{job.company.name}</Text>
-          <Text style={styles.name} numberOfLines={2} ellipsizeMode="tail">
+        <Text style={styles.name} numberOfLines={2} ellipsizeMode="tail">
             {job.name}
           </Text>
+          <Text style={styles.company}>{job.company.name}</Text>
         </View>
       </View>
       <TouchableOpacity onPress={onFavoriteJob}>
@@ -56,7 +64,7 @@ export default function JobCardWithCompany(job: JobsWithCompany) {
           color="#4966F7"
         />
       </TouchableOpacity>
-    </View>
+    </TouchableOpacity>
   );
 }
 
@@ -87,6 +95,8 @@ const styles = StyleSheet.create({
     color: "#2B2A35",
     fontSize: 16,
     fontWeight: "600",
+    textTransform:"capitalize",
+    marginBottom:3,
   },
-  company: { fontWeight: "400" },
+  company: { fontWeight: "400", fontSize: 14, },
 });

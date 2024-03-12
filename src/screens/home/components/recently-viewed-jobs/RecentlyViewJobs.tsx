@@ -1,13 +1,16 @@
+import { useTheme } from "@react-navigation/native";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 
 export default function RecentlyViewJobs() {
+  const { colors } = useTheme();
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.title}>Recently View Jobs</Text>
         <TouchableOpacity style={styles.seeAllWrapper}>
-          <Text style={styles.seeAll}>SEE ALL</Text>
+          <Text style={{ color: colors.primary, fontWeight: "700" }}>SEE ALL</Text>
           <MaterialIcons
             name="keyboard-arrow-right"
             size={18}
@@ -36,9 +39,5 @@ const styles = StyleSheet.create({
   seeAllWrapper: {
     flexDirection: "row",
     alignItems: "center",
-  },
-  seeAll: {
-    color: "#334AC0",
-    fontWeight: "700",
   },
 });

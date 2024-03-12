@@ -1,17 +1,18 @@
-import { StyleSheet, Text, View } from "react-native";
+import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
 import SearchBar from "./components/SearchBar";
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { FlatList } from "react-native-gesture-handler";
 import { getFilteredJobs } from "@/features/search/filterByJobSlice";
 import JobCardWithCompany from "@/components/jobs/JobCardWithCompany";
+import { useTheme } from "@react-navigation/native";
 
 export default function Search() {
   const { jobs, page } = useAppSelector(
     (state) => state.filterByJob.filteredJobs
   );
+  const {colors} = useTheme();
   const loading = useAppSelector((state) => state.filterByJob.loading);
-
   const selectedCategory = useAppSelector(
     (state) => state.filterByJob.selectedCategory
   );
@@ -43,9 +44,7 @@ export default function Search() {
           renderItem={({ item }) => <JobCardWithCompany {...item} />}
           keyExtractor={(item, _) => item.id.toString()}
           ListFooterComponent={loading && 
-            <View style={{paddingHorizontal:16}}>
-              <Text>Loading...</Text>
-            </View>
+            <ActivityIndicator size="large" color={colors.primary}/>
           }
           onEndReachedThreshold={0.1}
           onEndReached={loadJobs}

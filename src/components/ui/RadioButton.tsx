@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
         alignItems:"center",
         marginBottom:20,
         borderWidth:1,
-        borderColor:"#DDDFE5",
+        borderColor:"rgb(199, 199, 204)",
         borderRadius:24,
         padding:10,
     },
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
         height:24,
         borderRadius:24,
         borderWidth:1,
-        borderColor:"#DDDFE5"
+        borderColor:"rgb(199, 199, 204)"
     },
     selectedButton:{
         width:24,
@@ -36,6 +36,6 @@ const styles = StyleSheet.create({
         borderRadius:24,
         backgroundColor:"#4966F7",
         borderWidth:5,
-        borderColor:"#DDDFE5"
+        borderColor:"rgb(199, 199, 204)"
     }
 })

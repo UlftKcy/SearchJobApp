@@ -1,7 +1,7 @@
 import { searchQueryByJob } from "@/features/search/filterByJobSlice";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { SearchNavigationProp } from "@/types/navigation";
-import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useNavigation, useTheme } from "@react-navigation/native";
 import { useCallback, useRef, useState } from "react";
 import { StyleSheet, TextInput, TouchableOpacity, View } from "react-native";
 import FilterIcon from "react-native-vector-icons/AntDesign";
@@ -12,6 +12,7 @@ export default function SearchBar() {
   const [searchText, setSearchText] = useState(initializeSearchText);
   const dispatch = useAppDispatch();
   const { navigate } = useNavigation<SearchNavigationProp>();
+  const {colors} = useTheme();
 
   useFocusEffect(
     useCallback(() => {
@@ -31,7 +32,7 @@ export default function SearchBar() {
         inputMode="search"
         enterKeyHint="search"
         autoFocus={true}
-        cursorColor="#4966F7"
+        cursorColor={colors.primary}
         onChangeText={(newSearchText) => setSearchText(newSearchText)}
         onSubmitEditing={onSubmit}
         ref={inputRef}
