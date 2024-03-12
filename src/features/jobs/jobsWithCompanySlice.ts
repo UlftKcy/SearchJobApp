@@ -8,6 +8,7 @@ type InitialState = {
     page: number;
   };
   categories: string[];
+  appliedJobs:JobsWithCompany[];
   loading: boolean;
   error: boolean;
 };
@@ -17,6 +18,7 @@ const initialState: InitialState = {
     page: 1,
   },
   categories: [],
+  appliedJobs:[],
   loading: false,
   error: false,
 };
@@ -24,7 +26,6 @@ const initialState: InitialState = {
 export const getJobsWithCompany = createAsyncThunk(
   "jobsWithCompany/get",
   async (page: number) => {
-    console.log(page)
     const res = await fetchJobsWithCompany(page);
     return res;
   }
@@ -45,6 +46,9 @@ const jobsWithCompanySlice = createSlice({
         }
       });
     },
+    applyJob:(state,action)=>{
+      state.appliedJobs = [...state.appliedJobs,action.payload];
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(getJobsWithCompany.pending, (state, action) => {
@@ -66,5 +70,5 @@ const jobsWithCompanySlice = createSlice({
   },
 });
 
-export const { getCategories } = jobsWithCompanySlice.actions;
+export const { getCategories,applyJob } = jobsWithCompanySlice.actions;
 export default jobsWithCompanySlice.reducer;
