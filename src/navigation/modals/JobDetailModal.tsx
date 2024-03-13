@@ -1,12 +1,13 @@
 import {
   addFavorite,
+  addRecentlyViewJobs,
   applyJob,
   removeFavorite,
 } from "@/features/jobs/jobsWithCompanySlice";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { JobLocation } from "@/types";
+import { handleJobLocation } from "@/utils/jobLocation";
 import { useTheme } from "@react-navigation/native";
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 import {
   View,
   StyleSheet,
@@ -23,21 +24,27 @@ import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 
 export default function JobDetailModal({ navigation, route }) {
   const { selectedJob } = route.params;
-  const jobLocation = useMemo(() => {
-    return selectedJob.locations.map((location: JobLocation) => location.name);
-  }, [selectedJob.locations]);
-  const { width } = useWindowDimensions();
   const dispatch = useAppDispatch();
-  const {colors} = useTheme();
-
   const favoriteJobs = useAppSelector(
     (state) => state.jobsWithCompany.favoriteJobs
   );
+  // check favorite job
   const isFavoriteJob = favoriteJobs.find(
     (favoriteJob) => favoriteJob.id === selectedJob.id
-  )
-    ? true
-    : false;
+  );
+
+  // check applied job
+
+  const appliedJobs = useAppSelector(
+    (state) => state.jobsWithCompany.appliedJobs
+  );
+  const isApplyJob = appliedJobs.find(
+    (applyJob) => applyJob.id === selectedJob.id
+  );
+
+  const jobLocation = handleJobLocation(selectedJob);
+  const { width } = useWindowDimensions();
+  const { colors } = useTheme();
 
   useEffect(() => {
     navigation.setOptions({
@@ -59,8 +66,13 @@ export default function JobDetailModal({ navigation, route }) {
       },
       headerTitle: "",
     });
+
+    // add recently view jobs
+    dispatch(addRecentlyViewJobs(selectedJob));
+
   });
 
+  // job detail converts
   const source = {
     html: `
     ${selectedJob.contents}`,
@@ -112,9 +124,11 @@ export default function JobDetailModal({ navigation, route }) {
         </View>
         <RenderHtml contentWidth={width} source={source} />
       </ScrollView>
-      <TouchableOpacity style={styles.applyButton} onPress={onSubmit}>
-        <Text style={styles.applyButtonText}>Apply</Text>
-      </TouchableOpacity>
+      {isApplyJob === undefined && (
+        <TouchableOpacity style={styles.applyButton} onPress={onSubmit}>
+          <Text style={styles.applyButtonText}>Apply</Text>
+        </TouchableOpacity>
+      )}
     </View>
   );
 }
@@ -128,7 +142,7 @@ const styles = StyleSheet.create({
   jobName: {
     fontSize: 22,
     fontWeight: "500",
-    textTransform:"capitalize",
+    textTransform: "capitalize",
   },
   companyContainer: {
     flexDirection: "row",

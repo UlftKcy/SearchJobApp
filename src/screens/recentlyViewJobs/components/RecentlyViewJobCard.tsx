@@ -1,4 +1,4 @@
-import { removeJob } from "@/features/jobs/jobsWithCompanySlice";
+import { removeJob, removeRecentlyViewJobs } from "@/features/jobs/jobsWithCompanySlice";
 import { useAppDispatch } from "@/hooks/redux";
 import { JobsWithCompany } from "@/types";
 import { ModalNavigationProp } from "@/types/navigation";
@@ -13,7 +13,7 @@ import {
 } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 
-export default function AppliedJobCard(job: JobsWithCompany) {
+export default function RecentlyViewJobCard(job: JobsWithCompany) {
   const dispatch = useAppDispatch();
   const { colors } = useTheme();
   const { navigate } = useNavigation<ModalNavigationProp>();
@@ -26,8 +26,8 @@ export default function AppliedJobCard(job: JobsWithCompany) {
       <View style={styles.job}>
         <Image
           source={{ uri: job.companyDetail.refs.logo_image }}
-          width={Dimensions.get("window").width / 6}
-          height={Dimensions.get("window").width / 6}
+          width={Dimensions.get("window").width / 8}
+          height={Dimensions.get("window").width / 8}
           resizeMode="center"
           alt={job.company.name}
           style={styles.image}
@@ -39,7 +39,7 @@ export default function AppliedJobCard(job: JobsWithCompany) {
           <Text style={styles.company}>{job.company.name}</Text>
         </View>
       </View>
-      <TouchableOpacity onPress={() => dispatch(removeJob(job.id))}>
+      <TouchableOpacity onPress={() => dispatch(removeRecentlyViewJobs(job.id))}>
         <MaterialIcons name="close" size={20} color={colors.primary} />
       </TouchableOpacity>
     </TouchableOpacity>
@@ -54,8 +54,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#ffff",
     borderTopWidth: 0.5,
     borderColor: "rgb(199, 199, 204)",
-    paddingHorizontal: 16,
-    marginBottom: 10,
   },
   job: {
     flexDirection: "row",

@@ -26,7 +26,7 @@ export default function CompanyCard(company: CompanyType) {
           style={styles.image}
         />
         <View style={styles.companyDetail}>
-          <Text style={styles.name}>{company.name}</Text>
+          <Text style={styles.name} numberOfLines={2} ellipsizeMode="tail">{company.name}</Text>
           <Text style={styles.industry}>{companyIndustry[0]}</Text>
         </View>
       </View>
@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
   },
   companyDetail: {
     flexDirection: "column",
+    width: Dimensions.get("window").width / 2,
   },
   image: {
     borderRadius: 8,
@@ -57,6 +58,8 @@ const styles = StyleSheet.create({
     color: "#2B2A35",
     fontSize: 16,
     fontWeight: "600",
+    textTransform:"capitalize",
+    marginBottom:3,
   },
-  industry: { fontWeight: "300" },
+  industry: { fontWeight: "400", fontSize: 14,},
 });

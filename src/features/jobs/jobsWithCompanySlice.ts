@@ -10,6 +10,7 @@ type InitialState = {
   categories: string[];
   appliedJobs: JobsWithCompany[];
   favoriteJobs: JobsWithCompany[];
+  recentlyViewJobs: JobsWithCompany[];
   loading: boolean;
   error: boolean;
 };
@@ -21,6 +22,7 @@ const initialState: InitialState = {
   categories: [],
   appliedJobs: [],
   favoriteJobs: [],
+  recentlyViewJobs: [],
   loading: false,
   error: false,
 };
@@ -64,6 +66,22 @@ const jobsWithCompanySlice = createSlice({
         (job) => job.id !== action.payload
       );
     },
+    addRecentlyViewJobs: (state, action) => {
+      const existJob = state.recentlyViewJobs.findIndex(
+        (job) => job.id === action.payload.id
+      );
+
+      if (existJob === -1) {
+        state.recentlyViewJobs.push(action.payload)
+      }
+
+      console.log(state.recentlyViewJobs)
+    },
+    removeRecentlyViewJobs: (state, action) => {
+      state.recentlyViewJobs = state.recentlyViewJobs.filter(
+        (job) => job.id !== action.payload
+      );
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getJobsWithCompany.pending, (state, action) => {
@@ -91,5 +109,7 @@ export const {
   removeJob,
   addFavorite,
   removeFavorite,
+  addRecentlyViewJobs,
+  removeRecentlyViewJobs,
 } = jobsWithCompanySlice.actions;
 export default jobsWithCompanySlice.reducer;

@@ -43,7 +43,7 @@ export default function Home() {
       renderItem={({ item }) => renderSection(item)}
       keyExtractor={(_, index) => index.toString()}
       showsVerticalScrollIndicator={false}
-      contentContainerStyle={{ flex: 1, padding: 16, backgroundColor: colors.background }}
+      contentContainerStyle={{ padding: 16, backgroundColor: colors.background }}
       ItemSeparatorComponent={()=><SeperatorSection/>}
     />
   );
