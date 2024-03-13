@@ -1,4 +1,4 @@
-import { removeJob, removeRecentlyViewJobs } from "@/features/jobs/jobsWithCompanySlice";
+import { removeRecentlyViewJobs } from "@/features/jobs/jobsWithCompanySlice";
 import { useAppDispatch } from "@/hooks/redux";
 import { JobsWithCompany } from "@/types";
 import { ModalNavigationProp } from "@/types/navigation";

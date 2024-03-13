@@ -74,8 +74,6 @@ const jobsWithCompanySlice = createSlice({
       if (existJob === -1) {
         state.recentlyViewJobs.push(action.payload)
       }
-
-      console.log(state.recentlyViewJobs)
     },
     removeRecentlyViewJobs: (state, action) => {
       state.recentlyViewJobs = state.recentlyViewJobs.filter(
