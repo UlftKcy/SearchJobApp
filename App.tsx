@@ -4,7 +4,7 @@ import { store } from "@/features/store";
 import { NavigationContainer } from "@react-navigation/native";
 import RootStackScreen from "@/navigation/RootStackScreen";
 import Toast from "react-native-toast-message";
-import { theme } from "@/config/theme";
+import { theme } from "@/theme/theme";
 
 export default function App() {
   return (

@@ -13,11 +13,12 @@ import JobCard from "./JobCard";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import { HomeNavigationProp } from "@/types/navigation";
 import { getJobsWithCompany } from "@/features/jobs/jobsWithCompanySlice";
+import SkeletonLargeJobCard from "@/components/ui/SkeletonLargeJobCard";
 
 export default function TopJobs() {
-  const jobs = useAppSelector(
-    (state) => state.jobsWithCompany.jobsWithCompany.jobs
-  ).slice(0, 10);
+  const { loading, jobsWithCompany } = useAppSelector(
+    (state) => state.jobsWithCompany
+  );
   const dispatch = useAppDispatch();
   const { navigate } = useNavigation<HomeNavigationProp>();
   const { colors } = useTheme();
@@ -25,6 +26,7 @@ export default function TopJobs() {
   useEffect(() => {
     dispatch(getJobsWithCompany(1));
   }, [dispatch]);
+  
 
   return (
     <Fragment>
@@ -44,13 +46,26 @@ export default function TopJobs() {
           />
         </TouchableOpacity>
       </View>
-      <FlatList
-        data={jobs}
-        renderItem={({ item }: { item: JobType }) => <JobCard {...item} />}
-        keyExtractor={(_, index) => index.toString()}
-        initialNumToRender={3}
-        horizontal={true}
-      />
+      {
+        loading ? (
+          <FlatList
+          data={Array.from({ length: 10 })}
+          renderItem={() => <SkeletonLargeJobCard />}
+          keyExtractor={(_, index) => index.toString()}
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+        />
+        ):(
+          <FlatList
+          data={jobsWithCompany.jobs.slice(0, 10)}
+          renderItem={({ item }: { item: JobType }) => <JobCard {...item} />}
+          keyExtractor={(_, index) => index.toString()}
+          initialNumToRender={3}
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+        />
+        )
+      }
     </Fragment>
   );
 }

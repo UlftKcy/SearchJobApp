@@ -13,7 +13,6 @@ import { JobType } from "@/types";
 
 export default function JobCard(job: JobType) {
   const jobLocation = handleJobLocation(job);
-
   const { navigate } = useNavigation<ModalNavigationProp>();
 
   return (

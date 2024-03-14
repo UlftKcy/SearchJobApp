@@ -13,9 +13,10 @@ import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import CompanyCard from "./CompanyCard";
 import { useTheme } from "@react-navigation/native";
 import SeperatorList from "@/components/ui/SeperatorList";
+import SkeletonSmallJobCard from "@/components/ui/SkeletonSmallJobCard";
 
 export default function HiringNow() {
-  const companies = useAppSelector((state) => state.companies.companies).slice(0,3);
+  const {loading,companies} = useAppSelector((state) => state.companies);
   const dispatch = useAppDispatch();
   const { colors } = useTheme();
 
@@ -37,15 +38,26 @@ export default function HiringNow() {
           />
         </TouchableOpacity>
       </View>
-      <FlatList
-        data={companies}
-        renderItem={({ item }: { item: CompanyType }) => (
-          <CompanyCard {...item} />
-        )}
-        keyExtractor={(item) => String(item.id)}
-        initialNumToRender={3}
-        ItemSeparatorComponent={() => <SeperatorList/>}
-      />
+      {
+        loading ? (
+          <FlatList
+          data={Array.from({ length: 3 })}
+          renderItem={() => <SkeletonSmallJobCard />}
+          keyExtractor={(_, index) => index.toString()}
+          initialNumToRender={3}
+          ItemSeparatorComponent={() => <SeperatorList/>}
+        />
+        ):( <FlatList
+          data={companies.slice(0,3)}
+          renderItem={({ item }: { item: CompanyType }) => (
+            <CompanyCard {...item} />
+          )}
+          keyExtractor={(item) => String(item.id)}
+          initialNumToRender={3}
+          ItemSeparatorComponent={() => <SeperatorList/>}
+        />)
+}
+     
     </Fragment>
   );
 }
