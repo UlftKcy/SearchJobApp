@@ -6,18 +6,23 @@ import { FlatList } from "react-native-gesture-handler";
 import { getFilteredJobs } from "@/features/search/filterByJobSlice";
 import JobCardWithCompany from "@/components/jobs/JobCardWithCompany";
 import { useTheme } from "@react-navigation/native";
+import EmptyDisplayCard from "./components/EmptyDisplayCard";
 
 export default function Search() {
-  const { jobs, page } = useAppSelector(
-    (state) => state.filterByJob.filteredJobs
+  // filtered jobs and loading check
+  const { filteredJobs, loading } = useAppSelector(
+    (state) => state.filterByJob
   );
-  const {colors} = useTheme();
-  const loading = useAppSelector((state) => state.filterByJob.loading);
+  const { page, jobs } = filteredJobs;
+  
+  // dispatch selected category to getFilteredJobs
   const selectedCategory = useAppSelector(
     (state) => state.filterByJob.selectedCategory
   );
   const dispatch = useAppDispatch();
+  const { colors } = useTheme();
 
+  // infinitive scroll
   const loadJobs = () => {
     if (!loading) {
       dispatch(getFilteredJobs({ page, category: selectedCategory }));
@@ -32,19 +37,16 @@ export default function Search() {
 
   return (
     <View style={styles.container}>
-      <SearchBar/>
+      <SearchBar />
       {jobs.length === 0 && !loading ? (
-        <View style={{paddingHorizontal:16}}>
-          <Text style={styles.recentJobs}>Recent Jobs</Text>
-          <Text style={styles.noSearch}>No search...</Text>
-        </View>
+        <EmptyDisplayCard />
       ) : (
         <FlatList
           data={jobs}
           renderItem={({ item }) => <JobCardWithCompany {...item} />}
           keyExtractor={(item, _) => item.id.toString()}
-          ListFooterComponent={loading && 
-            <ActivityIndicator size="large" color={colors.primary}/>
+          ListFooterComponent={
+            loading && <ActivityIndicator size="large" color={colors.primary} />
           }
           onEndReachedThreshold={0.1}
           onEndReached={loadJobs}

@@ -1,11 +1,11 @@
 import { fetchFilteredJobs } from "@/services/jobs";
-import { JobsAndCompanies } from "@/types";
+import { JobsWithCompany } from "@/types";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 type InitialState = {
   searchText: string;
   filteredJobs: {
-    jobs: JobsAndCompanies[];
+    jobs: JobsWithCompany[];
     page: number;
   };
   loading: boolean;
