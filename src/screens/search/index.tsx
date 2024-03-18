@@ -1,57 +1,17 @@
-import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import SearchBar from "./components/SearchBar";
-import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { FlatList } from "react-native-gesture-handler";
-import { getFilteredJobs } from "@/features/search/filterByJobSlice";
-import JobCardWithCompany from "@/components/jobs/JobCardWithCompany";
-import { useTheme } from "@react-navigation/native";
-import EmptyDisplayCard from "./components/EmptyDisplayCard";
+import FilteredJobs from "./components/FilteredJobs";
+
+const onClear = () => {};
 
 export default function Search() {
-  // filtered jobs and loading check
-  const { filteredJobs, loading } = useAppSelector(
-    (state) => state.filterByJob
-  );
-  const { page, jobs } = filteredJobs;
-  
-  // dispatch selected category to getFilteredJobs
-  const selectedCategory = useAppSelector(
-    (state) => state.filterByJob.selectedCategory
-  );
-  const dispatch = useAppDispatch();
-  const { colors } = useTheme();
-
-  // infinitive scroll
-  const loadJobs = () => {
-    if (!loading) {
-      dispatch(getFilteredJobs({ page, category: selectedCategory }));
-    }
-  };
-
-  useEffect(() => {
-    if (jobs.length !== 0) {
-      loadJobs();
-    }
-  }, []);
-
   return (
     <View style={styles.container}>
       <SearchBar />
-      {jobs.length === 0 && !loading ? (
-        <EmptyDisplayCard />
-      ) : (
-        <FlatList
-          data={jobs}
-          renderItem={({ item }) => <JobCardWithCompany {...item} />}
-          keyExtractor={(item, _) => item.id.toString()}
-          ListFooterComponent={
-            loading && <ActivityIndicator size="large" color={colors.primary} />
-          }
-          onEndReachedThreshold={0.1}
-          onEndReached={loadJobs}
-        />
-      )}
+      <FilteredJobs />
+      <TouchableOpacity style={styles.clearButton} onPress={onClear}>
+        <Text style={styles.clearButtonText}>Clear</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -62,12 +22,19 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     backgroundColor: "#ffff",
   },
-  recentJobs: {
-    fontWeight: "500",
-    fontSize: 20,
-    marginBottom: 12,
+  clearButton: {
+    backgroundColor: "#4966F7",
+    padding: 14,
+    borderRadius: 24,
+    position: "absolute",
+    bottom: 20,
+    left: 16,
+    right: 16,
   },
-  noSearch: {
+  clearButtonText: {
+    color: "#ffff",
     fontSize: 16,
+    fontWeight: "600",
+    textAlign: "center",
   },
 });

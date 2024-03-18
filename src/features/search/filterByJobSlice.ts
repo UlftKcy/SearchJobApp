@@ -38,11 +38,13 @@ const filterByJobSlice = createSlice({
   reducers: {
     searchQueryByJob: (state, action) => {
       const searchQuery = action.payload;
+      state.searchText = searchQuery;
       state.filteredJobs.jobs = state.filteredJobs.jobs.filter((job)=>job.name.toLocaleLowerCase().includes(searchQuery.toLocaleLowerCase()));
     },
     selectCategory: (state, action) => {
       state.selectedCategory = action.payload;
       state.filteredJobs.jobs = [];
+      state.searchText = "";
       state.filteredJobs.page = 1;
     },
   },
@@ -53,7 +55,15 @@ const filterByJobSlice = createSlice({
     });
     builder.addCase(getFilteredJobs.fulfilled, (state, action) => {
       state.loading = false;
-      state.filteredJobs.jobs = [...state.filteredJobs.jobs, ...action.payload];
+      
+      // filter && search
+      if(state.searchText !== ""){
+        const filteredJobsBySearchText = action.payload.filter((job)=>job.name.toLocaleLowerCase().includes(state.searchText.toLocaleLowerCase()));
+        state.filteredJobs.jobs = [...state.filteredJobs.jobs, ...filteredJobsBySearchText];
+      }else{
+        state.filteredJobs.jobs = [...state.filteredJobs.jobs, ...action.payload];
+      }
+
       state.filteredJobs.page++;
     });
     builder.addCase(getFilteredJobs.rejected, (state, action) => {

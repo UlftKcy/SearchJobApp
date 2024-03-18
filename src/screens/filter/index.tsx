@@ -68,10 +68,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#ffff",
     padding: 16,
   },
-
-  filterByContainer: {
-    marginBottom: 20,
-  },
   title: {
     fontSize: 16,
     marginBottom: 20,

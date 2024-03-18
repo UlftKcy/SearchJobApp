@@ -1,5 +1,5 @@
 import { createStackNavigator } from "@react-navigation/stack";
-import JobDetailModal from "./modals/JobDetailModal";
+import JobDetailModal from "../modals/JobDetailModal";
 import BottomTabNavigator from "./tabs/BottomTabNavigator";
 import { TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
