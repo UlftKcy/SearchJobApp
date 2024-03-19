@@ -47,6 +47,9 @@ const filterByJobSlice = createSlice({
       state.searchText = "";
       state.filteredJobs.page = 1;
     },
+    clearFilter:()=>{
+     return initialState;
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(getFilteredJobs.pending, (state, action) => {
@@ -73,5 +76,5 @@ const filterByJobSlice = createSlice({
   },
 });
 
-export const { searchQueryByJob, selectCategory } = filterByJobSlice.actions;
+export const { searchQueryByJob, selectCategory,clearFilter } = filterByJobSlice.actions;
 export default filterByJobSlice.reducer;
