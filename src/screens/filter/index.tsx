@@ -1,5 +1,4 @@
 import { getCategories } from "@/features/jobs/jobsWithCompanySlice";
-import { getFilteredJobs } from "@/features/search/filterByJobSlice";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { SearchNavigationProp } from "@/types/navigation";
 import { useNavigation } from "@react-navigation/native";
@@ -10,27 +9,18 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import FilterActions from "./components/FilterActions";
 
 export default function Filter() {
   const { navigate } = useNavigation<SearchNavigationProp>();
   const dispatch = useAppDispatch();
-  const { selectedCategory, loading } = useAppSelector(
-    (state) => state.filterByJob
+  const selectedCategory = useAppSelector(
+    (state) => state.filterByJob.selectedCategory
   );
-  const page = useAppSelector((state) => state.filterByJob.filteredJobs.page);
 
   const handleFilter = async () => {
     dispatch(getCategories());
     navigate("Category");
-  };
-
-  const onSubmit = () => {
-    if (selectedCategory) {
-      dispatch(getFilteredJobs({ page, category: selectedCategory }));
-    }
-    if (!loading) {
-      navigate("Search");
-    }
   };
 
   return (
@@ -52,12 +42,7 @@ export default function Filter() {
           </Text>
         </View>
       </ScrollView>
-      <TouchableOpacity
-        style={styles.filterButton}
-        onPress={onSubmit}
-      >
-        <Text style={styles.filterButtonText}>Filter</Text>
-      </TouchableOpacity>
+      <FilterActions/>
     </View>
   );
 }
@@ -90,21 +75,5 @@ const styles = StyleSheet.create({
     color: "#4966F7",
     marginTop: 5,
     marginLeft: 15,
-  },
-
-  filterButton: {
-    backgroundColor: "#4966F7",
-    padding: 14,
-    borderRadius: 24,
-    position: "absolute",
-    bottom: 20,
-    left: 16,
-    right: 16,
-  },
-  filterButtonText: {
-    color: "#ffff",
-    fontSize: 16,
-    fontWeight: "600",
-    textAlign: "center",
   },
 });
