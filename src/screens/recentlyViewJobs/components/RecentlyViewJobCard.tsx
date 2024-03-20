@@ -26,8 +26,8 @@ export default function RecentlyViewJobCard(job: JobsWithCompany) {
       <View style={styles.job}>
         <Image
           source={{ uri: job.companyDetail.refs.logo_image }}
-          width={Dimensions.get("window").width / 8}
-          height={Dimensions.get("window").width / 8}
+          width={Dimensions.get("window").width / 6}
+          height={Dimensions.get("window").width / 6}
           resizeMode="center"
           alt={job.company.name}
           style={styles.image}

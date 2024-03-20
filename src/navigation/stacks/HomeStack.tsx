@@ -21,7 +21,11 @@ export default function HomeStack() {
         options={{ title: "Your Daily Top Jobs" }}
       />
       <Stack.Screen name="HiringNow" component={HiringNowPage} />
-      <Stack.Screen name="RecentlyViewJobs" component={RecentlyViewJobsPage} />
+      <Stack.Screen
+        name="RecentlyViewJobs"
+        component={RecentlyViewJobsPage}
+        options={{ title: "Recently View Jobs" }}
+      />
     </Stack.Navigator>
   );
 }

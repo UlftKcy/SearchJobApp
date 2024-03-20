@@ -30,7 +30,7 @@ export default function HiringNow() {
       <View style={styles.header}>
         <Text style={styles.title}>Hiring Now</Text>
         <TouchableOpacity style={styles.moreWrapper}>
-          <Text style={{ color: colors.primary, fontWeight: "700" }}>MORE</Text>
+          <Text style={{ color: colors.primary, fontWeight: "700" }}>SEE ALL</Text>
           <MaterialIcons
             name="keyboard-arrow-right"
             size={18}

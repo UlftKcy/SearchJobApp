@@ -12,7 +12,7 @@ export default function RecentlyViewJobsPage() {
         {
             jobs.length === 0 ? (
                 <View style={{flex:1,justifyContent:"center",alignItems:"center"}}>
-                    <Text style={{fontSize:16}}>No applied job!</Text>
+                    <Text style={{fontSize:16}}>No recently view job!</Text>
                 </View>
             ):(
                 <ScrollView showsVerticalScrollIndicator={false}>
