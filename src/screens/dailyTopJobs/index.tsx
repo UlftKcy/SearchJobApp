@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { useEffect } from "react";
-import { ActivityIndicator, FlatList, StyleSheet, Text, View } from "react-native";
+import { ActivityIndicator, FlatList } from "react-native";
 import JobCardWithCompany from "@/components/jobs/JobCardWithCompany";
 import { getJobsWithCompany } from "@/features/jobs/jobsWithCompanySlice";
 import SeperatorList from "@/components/ui/SeperatorList";

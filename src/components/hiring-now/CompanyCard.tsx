@@ -40,7 +40,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingRight: 5,
+    backgroundColor: "#ffff",
+    borderTopWidth: 0.5,
+    borderColor: "#ddd",
+    marginBottom:10,
   },
   company: {
     flexDirection: "row",

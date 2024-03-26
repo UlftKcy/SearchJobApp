@@ -50,31 +50,37 @@ const jobsWithCompanySlice = createSlice({
         }
       });
     },
+    // add applied jobs
     applyJob: (state, action) => {
       state.appliedJobs = [...state.appliedJobs, action.payload];
     },
+    // remove applied jobs
     removeJob: (state, action) => {
       state.appliedJobs = state.appliedJobs.filter(
         (job) => job.id !== action.payload
       );
     },
+    // add favorite jobs
     addFavorite: (state, action) => {
       state.favoriteJobs = [...state.favoriteJobs, action.payload];
     },
+    // remove favorite job
     removeFavorite: (state, action) => {
       state.favoriteJobs = state.favoriteJobs.filter(
         (job) => job.id !== action.payload
       );
     },
+    // add recently view jobs
     addRecentlyViewJobs: (state, action) => {
       const existJob = state.recentlyViewJobs.findIndex(
         (job) => job.id === action.payload.id
       );
 
       if (existJob === -1) {
-        state.recentlyViewJobs.push(action.payload)
+        state.recentlyViewJobs.push(action.payload);
       }
     },
+    // remove recently view jobs
     removeRecentlyViewJobs: (state, action) => {
       state.recentlyViewJobs = state.recentlyViewJobs.filter(
         (job) => job.id !== action.payload

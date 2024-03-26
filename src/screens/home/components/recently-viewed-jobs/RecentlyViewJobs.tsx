@@ -1,6 +1,6 @@
 import CardHeader from "@/components/home/CardHeader";
+import RecentlyViewJobCard from "@/components/recently-view-jobs/RecentlyViewJobCard";
 import { useAppSelector } from "@/hooks/redux";
-import RecentlyViewJobCard from "@/screens/recentlyViewJobs/components/RecentlyViewJobCard";
 import { Text, View } from "react-native";
 
 export default function RecentlyViewJobs() {

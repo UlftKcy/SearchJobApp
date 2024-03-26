@@ -1,7 +1,7 @@
 import { useAppSelector } from "@/hooks/redux";
 import { ScrollView, Text, View } from "react-native";
-import RecentlyViewJobCard from "./components/RecentlyViewJobCard";
 import { useTheme } from "@react-navigation/native";
+import RecentlyViewJobCard from "@/components/recently-view-jobs/RecentlyViewJobCard";
 
 export default function RecentlyViewJobsPage() {
     const jobs = useAppSelector(state=>state.jobsWithCompany.recentlyViewJobs);
