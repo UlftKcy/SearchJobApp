@@ -4,7 +4,6 @@ import Favorites from "@/screens/favorites";
 import MyJobs from "@/screens/my-jobs";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
-import HomeSearchBar from "@/screens/home/components/HomeSearchBar";
 import HomeStack from "../stacks/HomeStack";
 import SearchStack from "../stacks/SearchStack";
 
@@ -20,11 +19,7 @@ export default function BottomTabNavigator() {
           tabBarIcon: ({ color }) => (
             <AntDesign name="home" size={24} color={color} />
           ),
-          title: "Home",
-          headerTitle: () => <HomeSearchBar />,
-          headerStyle: {
-            height: 120,
-          },
+          title: "Jobs",
         }}
       />
       <Tab.Screen
@@ -54,6 +49,7 @@ export default function BottomTabNavigator() {
           tabBarIcon: ({ color }) => (
             <AntDesign name="user" size={24} color={color} />
           ),
+          title: "My Jobs",
         }}
       />
     </Tab.Navigator>
