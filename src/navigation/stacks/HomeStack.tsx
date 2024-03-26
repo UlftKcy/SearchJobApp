@@ -13,7 +13,7 @@ export default function HomeStack() {
       <Stack.Screen
         name="Home"
         component={Home}
-        options={{ headerShown: false }}
+        options={{ title:"Jobs" }}
       />
       <Stack.Screen
         name="DailyTopJobs"

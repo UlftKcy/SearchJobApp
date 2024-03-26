@@ -20,6 +20,7 @@ export default function BottomTabNavigator() {
             <AntDesign name="home" size={24} color={color} />
           ),
           title: "Jobs",
+          headerShown:false
         }}
       />
       <Tab.Screen
