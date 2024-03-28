@@ -1,6 +1,7 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import JobDetailModal from "../modals/JobDetailModal";
 import BottomTabNavigator from "./tabs/BottomTabNavigator";
+import CompanyPage from "@/screens/company";
 
 const RootStack = createStackNavigator();
 
@@ -25,6 +26,12 @@ export default function RootStackScreen() {
         <RootStack.Screen
           name="JobDetailModal"
           component={JobDetailModal}
+        />
+      </RootStack.Group>
+      <RootStack.Group>
+      <RootStack.Screen
+          name="CompanyPage"
+          component={CompanyPage}
         />
       </RootStack.Group>
     </RootStack.Navigator>

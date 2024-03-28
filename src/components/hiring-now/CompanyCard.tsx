@@ -1,4 +1,6 @@
 import { CompanyIndustry, CompanyType } from "@/types";
+import { CompanyNavigationProp } from "@/types/navigation";
+import { useNavigation, useTheme } from "@react-navigation/native";
 import { useMemo } from "react";
 import {
   Button,
@@ -6,6 +8,7 @@ import {
   Image,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from "react-native";
 
@@ -13,6 +16,8 @@ export default function CompanyCard(company: CompanyType) {
   const companyIndustry = useMemo(() => {
     return company.industries.map((industry: CompanyIndustry) => industry.name);
   }, [company.industries]);
+  const { navigate } = useNavigation<CompanyNavigationProp>();
+  const { colors } = useTheme();
 
   return (
     <View style={styles.container}>
@@ -26,11 +31,19 @@ export default function CompanyCard(company: CompanyType) {
           style={styles.image}
         />
         <View style={styles.companyDetail}>
-          <Text style={styles.name} numberOfLines={2} ellipsizeMode="tail">{company.name}</Text>
+          <Text style={styles.name} numberOfLines={2} ellipsizeMode="tail">
+            {company.name}
+          </Text>
           <Text style={styles.industry}>{companyIndustry[0]}</Text>
         </View>
       </View>
-      <Button title="Apply" color="#4966F7" />
+      <TouchableOpacity onPress={() => navigate("CompanyPage",{companyID:company.id})}>
+        <Text
+          style={[styles.applyButton,{backgroundColor: colors.primary, color: colors.background}]}
+        >
+          APPLY
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -43,7 +56,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#ffff",
     borderTopWidth: 0.5,
     borderColor: "#ddd",
-    marginBottom:10,
+    marginBottom: 10,
   },
   company: {
     flexDirection: "row",
@@ -61,8 +74,13 @@ const styles = StyleSheet.create({
     color: "#2B2A35",
     fontSize: 16,
     fontWeight: "600",
-    textTransform:"capitalize",
-    marginBottom:3,
+    textTransform: "capitalize",
+    marginBottom: 3,
   },
-  industry: { fontWeight: "400", fontSize: 14,},
+  industry: { fontWeight: "400", fontSize: 14 },
+  applyButton: {
+    fontWeight: "700",
+    padding: 10,
+    borderRadius: 5,
+  },
 });

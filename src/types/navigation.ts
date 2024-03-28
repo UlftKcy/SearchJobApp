@@ -26,6 +26,11 @@ export type ModalStackParamList = {
   JobDetailModal: { selectedJob: JobType };
 };
 
+export type CompanyStackParamList={
+  CompanyPage:{companyID:number};
+}
+
 export type HomeNavigationProp = StackNavigationProp<HomeStackParamList>;
 export type SearchNavigationProp = StackNavigationProp<SearchStackParamList>;
 export type ModalNavigationProp = StackNavigationProp<ModalStackParamList>;
+export type CompanyNavigationProp = StackNavigationProp<CompanyStackParamList>;
