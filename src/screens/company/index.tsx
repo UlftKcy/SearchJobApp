@@ -1,86 +1,37 @@
 import { useAppSelector } from "@/hooks/redux";
-import { companyIndustryNames } from "@/utils/companyIndustryNames";
-import { companyLocationNames } from "@/utils/companyLocationNames";
-import {
-  Dimensions,
-  Image,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { useTheme } from "@react-navigation/native";
+import { FlatList } from "react-native";
+import CompanyHeader from "./components/CompanyHeader";
+import JobCardWithCompany from "@/components/jobs/JobCardWithCompany";
 
 export default function CompanyPage({ route }) {
   const { companyId } = route.params;
+  const { colors } = useTheme();
   const companies = useAppSelector(
     (state) => state.companies.companiesByPage.companies
   );
+  const jobs = useAppSelector(
+    (state) => state.jobsWithCompany.jobsWithCompany.jobs
+  );
+
   const currentCompany = companies.find((company) => company.id === companyId);
 
-  // get company industries name
-  const companyIndustry = companyIndustryNames(currentCompany);
-
-  // get company locations name
-  const companyLocation = companyLocationNames(currentCompany);
+  // get jobs by company
+  const jobsByCurrentCompany = jobs.filter(
+    (job) => job.company.id === currentCompany.id
+  );
 
   return (
-    <View style={styles.container}>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 50 }}
-      >
-        <View style={styles.header}>
-          <View style={styles.imageContainer}>
-            <Image
-              source={{ uri: currentCompany.refs.logo_image }}
-              width={Dimensions.get("window").width / 6}
-              height={Dimensions.get("window").width / 6}
-              resizeMode="center"
-              alt={currentCompany.name}
-              style={styles.image}
-            />
-          </View>
-          <View style={styles.companyDetail}>
-            <Text style={styles.companyName}>{currentCompany.name}</Text>
-            <Text style={styles.industry}>{companyIndustry[0]}</Text>
-            <Text style={styles.industry}>{companyLocation[0]}</Text>
-          </View>
-        </View>
-      </ScrollView>
-    </View>
+    <FlatList
+      data={jobsByCurrentCompany}
+      renderItem={({ item }) => <JobCardWithCompany {...item} />}
+      keyExtractor={(_, index) => index.toString()}
+      ListHeaderComponent={<CompanyHeader {...currentCompany} />}
+      contentContainerStyle={{
+        flex: 1,
+        padding: 16,
+        backgroundColor: colors.background,
+      }}
+    />
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-    backgroundColor: "#ffff",
-  },
-  header: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  companyDetail: {
-    flexDirection: "column",
-  },
-  companyName: {
-    fontSize: 20,
-    fontWeight: "500",
-    marginBottom: 3,
-  },
-  industry: { fontWeight: "400", fontSize: 14, marginBottom: 3 },
-  imageContainer: {
-    borderWidth: 1,
-    borderColor: "#ddd",
-    borderRadius: 8,
-    marginRight: 12,
-    width: Dimensions.get("window").width / 5,
-    height: Dimensions.get("window").width / 5,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  image: {
-    borderRadius: 6,
-  },
-});

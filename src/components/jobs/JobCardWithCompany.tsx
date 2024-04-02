@@ -17,7 +17,6 @@ import {
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 
 export default function JobCardWithCompany(job: JobsWithCompany) {
-  const selectedJob = job;
   const { navigate } = useNavigation<ModalNavigationProp>();
 
   const favoriteJobs = useAppSelector(
