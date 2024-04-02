@@ -1,8 +1,8 @@
 import {
-  addFavorite,
+  addFavoriteJob,
   addRecentlyViewJobs,
   applyJob,
-  removeFavorite,
+  removeFavoriteJob,
 } from "@/features/jobs/jobsWithCompanySlice";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { handleJobLocation } from "@/utils/jobLocation";
@@ -91,8 +91,8 @@ export default function JobDetailModal({ navigation, route }) {
 
   const onFavoriteJob = () => {
     isFavoriteJob
-      ? dispatch(removeFavorite(selectedJob.id))
-      : dispatch(addFavorite(selectedJob));
+      ? dispatch(removeFavoriteJob(selectedJob.id))
+      : dispatch(addFavoriteJob(selectedJob));
   };
 
   return (

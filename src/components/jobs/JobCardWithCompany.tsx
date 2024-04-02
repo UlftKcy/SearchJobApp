@@ -1,6 +1,6 @@
 import {
-  addFavorite,
-  removeFavorite,
+  addFavoriteJob,
+  removeFavoriteJob
 } from "@/features/jobs/jobsWithCompanySlice";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { JobsWithCompany } from "@/types";
@@ -31,8 +31,8 @@ export default function JobCardWithCompany(job: JobsWithCompany) {
 
   const onFavoriteJob = () => {
     isFavoriteJob
-      ? dispatch(removeFavorite(job.id))
-      : dispatch(addFavorite(job));
+      ? dispatch(removeFavoriteJob(job.id))
+      : dispatch(addFavoriteJob(job));
   };
 
   return (

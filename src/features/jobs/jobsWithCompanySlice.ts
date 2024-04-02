@@ -61,14 +61,18 @@ const jobsWithCompanySlice = createSlice({
       );
     },
     // add favorite jobs
-    addFavorite: (state, action) => {
+    addFavoriteJob: (state, action) => {
       state.favoriteJobs = [...state.favoriteJobs, action.payload];
     },
     // remove favorite job
-    removeFavorite: (state, action) => {
+    removeFavoriteJob: (state, action) => {
       state.favoriteJobs = state.favoriteJobs.filter(
         (job) => job.id !== action.payload
       );
+    },
+    // remove all favorite job
+    removeAllFavoriteJobs: (state) => {
+      state.favoriteJobs = initialState.favoriteJobs;
     },
     // add recently view jobs
     addRecentlyViewJobs: (state, action) => {
@@ -80,11 +84,15 @@ const jobsWithCompanySlice = createSlice({
         state.recentlyViewJobs.push(action.payload);
       }
     },
-    // remove recently view jobs
+    // remove recently view job
     removeRecentlyViewJobs: (state, action) => {
       state.recentlyViewJobs = state.recentlyViewJobs.filter(
         (job) => job.id !== action.payload
       );
+    },
+    // remove all recently view jobs
+    removeAllRecentlyViewJobs: (state) => {
+      state.recentlyViewJobs = initialState.recentlyViewJobs;
     },
   },
   extraReducers: (builder) => {
@@ -111,9 +119,11 @@ export const {
   getCategories,
   applyJob,
   removeJob,
-  addFavorite,
-  removeFavorite,
+  addFavoriteJob,
+  removeFavoriteJob,
+  removeAllFavoriteJobs,
   addRecentlyViewJobs,
   removeRecentlyViewJobs,
+  removeAllRecentlyViewJobs
 } = jobsWithCompanySlice.actions;
 export default jobsWithCompanySlice.reducer;
