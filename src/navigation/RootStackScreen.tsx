@@ -14,6 +14,10 @@ export default function RootStackScreen() {
           component={BottomTabNavigator}
           options={{ headerShown: false }}
         />
+         <RootStack.Screen
+          name="CompanyPage"
+          component={CompanyPage}
+        />
       </RootStack.Group>
       <RootStack.Group
         screenOptions={{
@@ -26,12 +30,6 @@ export default function RootStackScreen() {
         <RootStack.Screen
           name="JobDetailModal"
           component={JobDetailModal}
-        />
-      </RootStack.Group>
-      <RootStack.Group>
-      <RootStack.Screen
-          name="CompanyPage"
-          component={CompanyPage}
         />
       </RootStack.Group>
     </RootStack.Navigator>

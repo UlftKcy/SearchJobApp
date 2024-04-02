@@ -1,5 +1,6 @@
 import { CompanyIndustry, CompanyType } from "@/types";
 import { CompanyNavigationProp } from "@/types/navigation";
+import { companyIndustryNames } from "@/utils/companyIndustryNames";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import { useMemo } from "react";
 import {
@@ -13,9 +14,8 @@ import {
 } from "react-native";
 
 export default function CompanyCard(company: CompanyType) {
-  const companyIndustry = useMemo(() => {
-    return company.industries.map((industry: CompanyIndustry) => industry.name);
-  }, [company.industries]);
+  // get company industries name
+  const companyIndustry = companyIndustryNames(company);
   const { navigate } = useNavigation<CompanyNavigationProp>();
   const { colors } = useTheme();
 
@@ -37,7 +37,7 @@ export default function CompanyCard(company: CompanyType) {
           <Text style={styles.industry}>{companyIndustry[0]}</Text>
         </View>
       </View>
-      <TouchableOpacity onPress={() => navigate("CompanyPage",{companyID:company.id})}>
+      <TouchableOpacity onPress={() => navigate("CompanyPage",{companyId:company.id})}>
         <Text
           style={[styles.applyButton,{backgroundColor: colors.primary, color: colors.background}]}
         >

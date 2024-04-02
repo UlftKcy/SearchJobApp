@@ -27,7 +27,7 @@ export type ModalStackParamList = {
 };
 
 export type CompanyStackParamList={
-  CompanyPage:{companyID:number};
+  CompanyPage:{companyId:number};
 }
 
 export type HomeNavigationProp = StackNavigationProp<HomeStackParamList>;
