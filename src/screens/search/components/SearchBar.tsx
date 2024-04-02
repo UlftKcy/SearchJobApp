@@ -1,18 +1,24 @@
 import { searchQueryByJob } from "@/features/search/filterByJobSlice";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { SearchNavigationProp } from "@/types/navigation";
-import { useFocusEffect, useNavigation, useTheme } from "@react-navigation/native";
+import {
+  useFocusEffect,
+  useNavigation,
+  useTheme,
+} from "@react-navigation/native";
 import { useCallback, useRef, useState } from "react";
 import { StyleSheet, TextInput, TouchableOpacity, View } from "react-native";
 import FilterIcon from "react-native-vector-icons/AntDesign";
 
 export default function SearchBar() {
   const inputRef = useRef(null);
-  const initializeSearchText = useAppSelector((state) => state.filterByJob.searchText);
+  const initializeSearchText = useAppSelector(
+    (state) => state.filterByJob.searchText
+  );
   const [searchText, setSearchText] = useState(initializeSearchText);
   const dispatch = useAppDispatch();
   const { navigate } = useNavigation<SearchNavigationProp>();
-  const {colors} = useTheme();
+  const { colors } = useTheme();
 
   useFocusEffect(
     useCallback(() => {
@@ -28,7 +34,7 @@ export default function SearchBar() {
     <View style={styles.container}>
       <TextInput
         style={styles.input}
-        placeholder="Search Jobs,positions,companies..."
+        placeholder="Search Jobs..."
         inputMode="search"
         enterKeyHint="search"
         autoFocus={true}
@@ -51,8 +57,8 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom:20,
-    paddingHorizontal:16,
+    marginBottom: 20,
+    paddingHorizontal: 16,
   },
   input: {
     width: "87%",

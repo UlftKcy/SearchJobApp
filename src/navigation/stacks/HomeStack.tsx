@@ -10,17 +10,17 @@ const Stack = createStackNavigator<HomeStackParamList>();
 export default function HomeStack() {
   return (
     <Stack.Navigator initialRouteName="Home">
-      <Stack.Screen
-        name="Home"
-        component={Home}
-        options={{ title:"Jobs" }}
-      />
+      <Stack.Screen name="Home" component={Home} options={{ title: "Jobs" }} />
       <Stack.Screen
         name="DailyTopJobs"
         component={DailyTopJobsPage}
         options={{ title: "Your Daily Top Jobs" }}
       />
-      <Stack.Screen name="HiringNow" component={HiringNowPage} />
+      <Stack.Screen
+        name="HiringNow"
+        component={HiringNowPage}
+        options={{ title: "Hiring Now" }}
+      />
       <Stack.Screen
         name="RecentlyViewJobs"
         component={RecentlyViewJobsPage}
