@@ -1,7 +1,6 @@
 # Search Job App
 [![React Native](https://img.shields.io/badge/React%20Native-v0.73.4-blue.svg)](https://reactnative.dev/)
 
-
 ![Screenshot_2024-04-03-13-36-35-068-edit_host exp exponent](https://github.com/UlftKcy/SearchJobApp/assets/80036968/3b03effc-ed96-4f04-98b0-a9a9a1bddd1f)
 ![Screenshot_2024-04-03-13-40-29-764-edit_host exp exponent](https://github.com/UlftKcy/SearchJobApp/assets/80036968/4fb61155-ecf9-4e7e-bbe6-064b8ca99cdf)
 ![Screenshot_2024-04-03-13-39-04-264-edit_host exp exponent](https://github.com/UlftKcy/SearchJobApp/assets/80036968/9ad9de8e-8e80-40ec-8d59-8fb5b09fc84a)
