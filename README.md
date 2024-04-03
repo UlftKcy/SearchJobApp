@@ -1,2 +1,3 @@
 # Search Job App
-![React Native](https://img.shields.io/badge/react_native-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+[![React Native](https://img.shields.io/badge/React%20Native-v0.64.2-blue.svg)](https://reactnative.dev/)
+
