@@ -1,1 +1,1 @@
-# Search Job App -- React Native
+# Search Job App - React Native
