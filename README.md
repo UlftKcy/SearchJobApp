@@ -1,2 +1,2 @@
-# Search Job App - React Native
-![badmath](https://img.shields.io/github/languages/top/lernantino/badmath)
+# Search Job App
+https://img.shields.io/badge/any_text-you_like-blue
